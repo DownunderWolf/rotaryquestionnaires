@@ -1,4 +1,119 @@
+import { useState } from "react";
+
 function App() {
+  const [currentPage, setCurrentPage] = useState("login");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleLogin = () => {
+    if (
+      username.toLowerCase() === "andyround" &&
+      password === "workshop"
+    ) {
+      setErrorMessage("");
+      setCurrentPage("dashboard");
+    } else {
+      setErrorMessage("Invalid Username or Password");
+    }
+  };
+
+  if (currentPage === "dashboard") {
+    return (
+      <div
+        style={{
+          width: "100vw",
+          minHeight: "100vh",
+          backgroundColor: "#005DAA",
+          padding: "24px",
+          boxSizing: "border-box",
+          fontFamily: "Inter, sans-serif",
+        }}
+      >
+        <img
+          src="/images/RotaryClubLogo.svg"
+          alt="Rotary Club Logo"
+          style={{
+            width: "60vw",
+            maxWidth: "220px",
+            minWidth: "120px",
+            display: "block",
+            margin: "0 auto 20px auto",
+          }}
+        />
+
+        <h1
+          style={{
+            color: "#FFFFFF",
+            textAlign: "center",
+            fontFamily: "Montserrat, sans-serif",
+            fontSize: "clamp(2rem, 4vw, 3rem)",
+          }}
+        >
+          Workshop Response Hub
+        </h1>
+
+        <div
+          style={{
+            maxWidth: "700px",
+            margin: "40px auto",
+            display: "grid",
+            gap: "16px",
+          }}
+        >
+          <DashboardCard
+            title="Create Session"
+            description="Create a new workshop session"
+          />
+
+          <DashboardCard
+            title="Session History"
+            description="View previous workshops and responses"
+          />
+
+          <DashboardCard
+            title="Settings"
+            description="Configure application settings"
+          />
+
+          <div
+            onClick={() => {
+              setUsername("");
+              setPassword("");
+              setCurrentPage("login");
+            }}
+            style={{
+              background: "#FFFFFF",
+              borderRadius: "12px",
+              padding: "20px",
+              cursor: "pointer",
+              boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
+            }}
+          >
+            <h3
+              style={{
+                margin: 0,
+                color: "#005DAA",
+                fontFamily: "Montserrat, sans-serif",
+              }}
+            >
+              Logout
+            </h3>
+
+            <p
+              style={{
+                marginTop: "8px",
+                color: "#666666",
+              }}
+            >
+              Return to login screen
+            </p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       style={{
@@ -23,9 +138,9 @@ function App() {
           maxWidth: "220px",
           minWidth: "120px",
           height: "auto",
-           marginBottom: "20px",
-  }}
-/>
+          marginBottom: "20px",
+        }}
+      />
 
       <h1
         style={{
@@ -63,6 +178,8 @@ function App() {
         <input
           type="text"
           placeholder="Username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
           style={{
             width: "100%",
             padding: "14px",
@@ -77,10 +194,12 @@ function App() {
         <input
           type="password"
           placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
           style={{
             width: "100%",
             padding: "14px",
-            marginBottom: "25px",
+            marginBottom: "15px",
             borderRadius: "8px",
             border: "1px solid #D9D9D6",
             boxSizing: "border-box",
@@ -88,7 +207,20 @@ function App() {
           }}
         />
 
+        {errorMessage && (
+          <p
+            style={{
+              color: "#D32F2F",
+              fontSize: "14px",
+              marginBottom: "15px",
+            }}
+          >
+            {errorMessage}
+          </p>
+        )}
+
         <button
+          onClick={handleLogin}
           style={{
             width: "100%",
             padding: "14px",
@@ -104,6 +236,45 @@ function App() {
           Login
         </button>
       </div>
+    </div>
+  );
+}
+
+function DashboardCard({
+  title,
+  description,
+}: {
+  title: string;
+  description: string;
+}) {
+  return (
+    <div
+      style={{
+        background: "#FFFFFF",
+        borderRadius: "12px",
+        padding: "20px",
+        cursor: "pointer",
+        boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
+      }}
+    >
+      <h3
+        style={{
+          margin: 0,
+          color: "#005DAA",
+          fontFamily: "Montserrat, sans-serif",
+        }}
+      >
+        {title}
+      </h3>
+
+      <p
+        style={{
+          marginTop: "8px",
+          color: "#666666",
+        }}
+      >
+        {description}
+      </p>
     </div>
   );
 }
