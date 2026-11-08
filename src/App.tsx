@@ -3,6 +3,7 @@ import CreateSession from "./components/CreateSession";
 
 function App() {
   const [currentPage, setCurrentPage] = useState("login");
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -18,6 +19,28 @@ function App() {
       setErrorMessage("Invalid Username or Password");
     }
   };
+
+  if (currentPage === "createSession") {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundColor: "#005DAA",
+          padding: "24px",
+          boxSizing: "border-box",
+        }}
+      >
+        <CreateSession
+          onBack={() => setCurrentPage("dashboard")}
+          onReview={() =>
+            alert(
+              "Review Session page will be connected next."
+            )
+          }
+        />
+      </div>
+    );
+  }
 
   if (currentPage === "dashboard") {
     return (
@@ -65,6 +88,9 @@ function App() {
           <DashboardCard
             title="Create Session"
             description="Create a new workshop session"
+            onClick={() =>
+              setCurrentPage("createSession")
+            }
           />
 
           <DashboardCard
@@ -77,39 +103,15 @@ function App() {
             description="Configure application settings"
           />
 
-          <div
+          <DashboardCard
+            title="Logout"
+            description="Return to login screen"
             onClick={() => {
               setUsername("");
               setPassword("");
               setCurrentPage("login");
             }}
-            style={{
-              background: "#FFFFFF",
-              borderRadius: "12px",
-              padding: "20px",
-              cursor: "pointer",
-              boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
-            }}
-          >
-            <h3
-              style={{
-                margin: 0,
-                color: "#005DAA",
-                fontFamily: "Montserrat, sans-serif",
-              }}
-            >
-              Logout
-            </h3>
-
-            <p
-              style={{
-                marginTop: "8px",
-                color: "#666666",
-              }}
-            >
-              Return to login screen
-            </p>
-          </div>
+          />
         </div>
       </div>
     );
@@ -180,32 +182,20 @@ function App() {
           type="text"
           placeholder="Username"
           value={username}
-          onChange={(e) => setUsername(e.target.value)}
-          style={{
-            width: "100%",
-            padding: "14px",
-            marginBottom: "15px",
-            borderRadius: "8px",
-            border: "1px solid #D9D9D6",
-            boxSizing: "border-box",
-            fontSize: "16px",
-          }}
+          onChange={(e) =>
+            setUsername(e.target.value)
+          }
+          style={inputStyle}
         />
 
         <input
           type="password"
           placeholder="Password"
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          style={{
-            width: "100%",
-            padding: "14px",
-            marginBottom: "15px",
-            borderRadius: "8px",
-            border: "1px solid #D9D9D6",
-            boxSizing: "border-box",
-            fontSize: "16px",
-          }}
+          onChange={(e) =>
+            setPassword(e.target.value)
+          }
+          style={inputStyle}
         />
 
         {errorMessage && (
@@ -222,17 +212,7 @@ function App() {
 
         <button
           onClick={handleLogin}
-          style={{
-            width: "100%",
-            padding: "14px",
-            backgroundColor: "#F7A81B",
-            color: "#005DAA",
-            border: "none",
-            borderRadius: "8px",
-            fontWeight: "bold",
-            fontSize: "16px",
-            cursor: "pointer",
-          }}
+          style={loginButton}
         >
           Login
         </button>
@@ -244,12 +224,15 @@ function App() {
 function DashboardCard({
   title,
   description,
+  onClick,
 }: {
   title: string;
   description: string;
+  onClick?: () => void;
 }) {
   return (
     <div
+      onClick={onClick}
       style={{
         background: "#FFFFFF",
         borderRadius: "12px",
@@ -279,5 +262,27 @@ function DashboardCard({
     </div>
   );
 }
+
+const inputStyle = {
+  width: "100%",
+  padding: "14px",
+  marginBottom: "15px",
+  borderRadius: "8px",
+  border: "1px solid #D9D9D6",
+  boxSizing: "border-box" as const,
+  fontSize: "16px",
+};
+
+const loginButton = {
+  width: "100%",
+  padding: "14px",
+  backgroundColor: "#F7A81B",
+  color: "#005DAA",
+  border: "none",
+  borderRadius: "8px",
+  fontWeight: "bold" as const,
+  fontSize: "16px",
+  cursor: "pointer",
+};
 
 export default App;

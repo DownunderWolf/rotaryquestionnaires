@@ -76,8 +76,9 @@ export default function CreateSession({
   ) => {
     setQuestions(
       questions.map((question) => {
-        if (question.id !== questionId)
+        if (question.id !== questionId) {
           return question;
+        }
 
         const updatedOptions = [
           ...question.options,
@@ -174,9 +175,7 @@ export default function CreateSession({
         <textarea
           value={sessionDescription}
           onChange={(e) =>
-            setSessionDescription(
-              e.target.value
-            )
+            setSessionDescription(e.target.value)
           }
           style={{
             ...inputStyle,
@@ -196,10 +195,9 @@ export default function CreateSession({
 
         {questions.map((question, index) => (
           <div
-            tion.id}
+            key={question.id}
             style={{
-              border:
-                "1px solid #D9D9D6",
+              border: "1px solid #D9D9D6",
               borderRadius: "12px",
               padding: "20px",
               marginBottom: "20px",
@@ -231,8 +229,7 @@ export default function CreateSession({
               value={question.type}
               onChange={(e) => {
                 const selectedType =
-                  e.target
-                    .value as QuestionType;
+                  e.target.value as QuestionType;
 
                 const defaultOptions =
                   selectedType ===
@@ -249,8 +246,7 @@ export default function CreateSession({
                       question.id
                         ? {
                             ...currentQuestion,
-                            type:
-                              selectedType,
+                            type: selectedType,
                             options:
                               defaultOptions,
                           }
@@ -260,18 +256,10 @@ export default function CreateSession({
               }}
               style={inputStyle}
             >
-              <option>
-                Free Text
-              </option>
-              <option>
-                Single Choice
-              </option>
-              <option>
-                Multiple Choice
-              </option>
-              <option>
-                Rating Scale
-              </option>
+              <option>Free Text</option>
+              <option>Single Choice</option>
+              <option>Multiple Choice</option>
+              <option>Rating Scale</option>
             </select>
 
             {(question.type ===
@@ -282,10 +270,7 @@ export default function CreateSession({
                 <h4>Options</h4>
 
                 {question.options.map(
-                  (
-                    option,
-                    optionIndex
-                  ) => (
+                  (option, optionIndex) => (
                     <input
                       key={optionIndex}
                       type="text"
@@ -307,13 +292,9 @@ export default function CreateSession({
 
                 <button
                   onClick={() =>
-                    addOption(
-                      question.id
-                    )
+                    addOption(question.id)
                   }
-                  style={
-                    secondaryButton
-                  }
+                  style={secondaryButton}
                 >
                   Add Option
                 </button>
@@ -322,23 +303,17 @@ export default function CreateSession({
 
             {question.type ===
               "Rating Scale" && (
-              <p>
-                Default scale:
-                1–5
-              </p>
+              <p>Default scale: 1-5</p>
             )}
 
-            {questions.length >
-              1 && (
+            {questions.length > 1 && (
               <button
                 onClick={() =>
                   removeQuestion(
                     question.id
                   )
                 }
-                style={
-                  removeButton
-                }
+                style={removeButton}
               >
                 Remove Question
               </button>
@@ -396,7 +371,7 @@ const primaryButton = {
   color: "#005DAA",
   border: "none",
   borderRadius: "8px",
-  fontWeight: "bold",
+  fontWeight: "bold" as const,
   cursor: "pointer",
 };
 
