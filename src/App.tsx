@@ -2,35 +2,75 @@ function App() {
   return (
     <div
       style={{
+        width: "100vw",
         minHeight: "100vh",
+        overflowX: "hidden",
+        backgroundColor: "#005DAA",
         display: "flex",
+        flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#f5f7fa",
-        fontFamily: "Arial, sans-serif",
+        padding: "24px",
+        boxSizing: "border-box",
+        fontFamily: "Inter, sans-serif",
       }}
     >
-      <div
+      <img
+        src="/images/RotaryClubLogo.svg"
+        alt="Rotary Club Logo"
         style={{
-          width: "420px",
-          backgroundColor: "white",
-          padding: "40px",
-          borderRadius: "12px",
-          boxShadow: "0 4px 20px rgba(0,0,0,0.15)",
+          width: "60vw",
+          maxWidth: "220px",
+          minWidth: "120px",
+          height: "auto",
+           marginBottom: "20px",
+  }}
+/>
+
+      <h1
+        style={{
+          color: "#FFFFFF",
+          fontSize: "clamp(2rem, 4vw, 3rem)",
+          marginBottom: "10px",
+          fontFamily: "Montserrat, sans-serif",
+          textAlign: "center",
         }}
       >
-        <h1>Workshop Response Hub</h1>
+        Workshop Response Hub
+      </h1>
 
-        <p>Administrator Login</p>
+      <p
+        style={{
+          color: "#FFFFFF",
+          marginBottom: "30px",
+          opacity: 0.9,
+          textAlign: "center",
+        }}
+      >
+        Anonymous Audience Engagement Platform
+      </p>
 
+      <div
+        style={{
+          width: "100%",
+          maxWidth: "450px",
+          backgroundColor: "#FFFFFF",
+          borderRadius: "12px",
+          padding: "35px",
+          boxShadow: "0 8px 30px rgba(0,0,0,0.20)",
+        }}
+      >
         <input
           type="text"
           placeholder="Username"
           style={{
             width: "100%",
-            padding: "12px",
-            marginBottom: "12px",
+            padding: "14px",
+            marginBottom: "15px",
+            borderRadius: "8px",
+            border: "1px solid #D9D9D6",
             boxSizing: "border-box",
+            fontSize: "16px",
           }}
         />
 
@@ -39,20 +79,25 @@ function App() {
           placeholder="Password"
           style={{
             width: "100%",
-            padding: "12px",
-            marginBottom: "20px",
+            padding: "14px",
+            marginBottom: "25px",
+            borderRadius: "8px",
+            border: "1px solid #D9D9D6",
             boxSizing: "border-box",
+            fontSize: "16px",
           }}
         />
 
         <button
           style={{
             width: "100%",
-            padding: "12px",
-            backgroundColor: "#0F4C81",
-            color: "white",
+            padding: "14px",
+            backgroundColor: "#F7A81B",
+            color: "#005DAA",
             border: "none",
-            borderRadius: "6px",
+            borderRadius: "8px",
+            fontWeight: "bold",
+            fontSize: "16px",
             cursor: "pointer",
           }}
         >

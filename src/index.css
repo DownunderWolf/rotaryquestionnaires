@@ -1,4 +1,17 @@
 :root {
+  html,
+body,
+#root {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+}
+
+* {
+  box-sizing: border-box;
+}
   --text: #6b6375;
   --text-h: #08060d;
   --bg: #fff;
