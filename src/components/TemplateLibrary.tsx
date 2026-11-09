@@ -94,7 +94,6 @@ export default function TemplateLibrary({
             "Unable to load template"
         );
       }
-console.log("CALLING onOpenTemplate");
 console.log(data);
       onOpenTemplate(data);
     } catch (err) {

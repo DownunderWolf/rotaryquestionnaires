@@ -1,4 +1,3 @@
-console.log("APP VERSION TEST 123");
 import { useState } from "react";
 
 import CreateSession from "./components/CreateSession";
@@ -75,7 +74,6 @@ const [selectedTemplate, setSelectedTemplate] =
     setCurrentPage("dashboard")
   }
   onOpenTemplate={(data) => {
-  console.log("APP RECEIVED TEMPLATE");
   console.log(data);
 
   setSelectedTemplate(data);
