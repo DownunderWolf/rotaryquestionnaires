@@ -43,6 +43,8 @@ export default function CreateSession({
 
   const [saveMessage, setSaveMessage] = useState("");
   useEffect(() => {
+    console.log(templateData);
+    
   if (!templateData) return;
 
   setSessionName(
