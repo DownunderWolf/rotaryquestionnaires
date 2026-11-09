@@ -277,6 +277,17 @@ function App() {
         >
           Login
         </button>
+        <p
+  style={{
+    marginTop: "20px",
+    marginBottom: 0,
+    color: "#666666",
+    fontSize: "12px",
+    textAlign: "center",
+  }}
+>
+  © Complete Circle Consulting
+</p>
       </div>
     </div>
   );
