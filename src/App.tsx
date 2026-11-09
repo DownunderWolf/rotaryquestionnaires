@@ -1,3 +1,4 @@
+console.log("APP VERSION TEST 123");
 import { useState } from "react";
 const [selectedTemplate, setSelectedTemplate] =
   useState<any>(null);
