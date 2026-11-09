@@ -87,25 +87,72 @@ export async function onRequestPost(
       const question =
         questions[i];
 
-      await context.env.DB.prepare(
+      const questionInsert =
+        await context.env.DB.prepare(
+          `
+          INSERT INTO questions
+          (
+            template_id,
+            question_text,
+            question_type,
+            display_order
+          )
+          VALUES (?, ?, ?, ?)
         `
-        INSERT INTO questions
-        (
-          template_id,
-          question_text,
-          question_type,
-          display_order
         )
-        VALUES (?, ?, ?, ?)
-      `
-      )
-        .bind(
-          templateId,
-          question.text,
-          question.type,
-          i + 1
+          .bind(
+            templateId,
+            question.text,
+            question.type,
+            i + 1
+          )
+          .run();
+
+      const questionId =
+        questionInsert.meta
+          .last_row_id;
+
+      if (
+        question.options &&
+        Array.isArray(
+          question.options
         )
-        .run();
+      ) {
+        for (
+          let j = 0;
+          j <
+          question.options.length;
+          j++
+        ) {
+          const option =
+            question.options[j];
+
+          if (
+            !option ||
+            option.trim() === ""
+          ) {
+            continue;
+          }
+
+          await context.env.DB.prepare(
+            `
+            INSERT INTO question_options
+            (
+              question_id,
+              option_text,
+              display_order
+            )
+            VALUES (?, ?, ?)
+          `
+          )
+            .bind(
+              questionId,
+              option,
+              j + 1
+            )
+            .run();
+        }
+      }
     }
 
     return Response.json({
@@ -121,7 +168,9 @@ export async function onRequestPost(
             ? error.message
             : "Unknown error",
       },
-      { status: 500 }
+      {
+        status: 500,
+      }
     );
   }
 }
