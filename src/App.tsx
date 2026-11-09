@@ -72,9 +72,13 @@ function App() {
     setCurrentPage("dashboard")
   }
   onOpenTemplate={(data) => {
-    setSelectedTemplate(data);
-    setCurrentPage("createSession");
-  }}
+  console.log("APP RECEIVED TEMPLATE");
+  console.log(data);
+
+  setSelectedTemplate(data);
+  setCurrentPage("createSession");
+}}
+
 />
         />
       </div>
