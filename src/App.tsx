@@ -1,4 +1,6 @@
 import { useState } from "react";
+const [selectedTemplate, setSelectedTemplate] =
+  useState<any>(null);
 import CreateSession from "./components/CreateSession";
 import TemplateLibrary from "./components/TemplateLibrary";
 
@@ -41,15 +43,14 @@ function App() {
         }}
       >
         <CreateSession
-          onBack={() =>
-            setCurrentPage("dashboard")
-          }
-          onReview={() =>
-            alert(
-              "Review Session page will be connected next."
-            )
-          }
-        />
+  templateData={selectedTemplate}
+  onBack={() =>
+    setCurrentPage("dashboard")
+  }
+  onReview={() =>
+    alert("Review coming soon")
+  }
+/>
       </div>
     );
   }
@@ -66,18 +67,15 @@ function App() {
           boxSizing: "border-box",
         }}
       >
-        <TemplateLibrary
-          onBack={() =>
-            setCurrentPage("dashboard")
-          }
-          onOpenTemplate={(
-            templateData
-          ) => {
-            console.log(
-              "Template selected",
-              templateData
-            );
-          }}
+        <<TemplateLibrary
+  onBack={() =>
+    setCurrentPage("dashboard")
+  }
+  onOpenTemplate={(data) => {
+    setSelectedTemplate(data);
+    setCurrentPage("createSession");
+  }}
+/>
         />
       </div>
     );
