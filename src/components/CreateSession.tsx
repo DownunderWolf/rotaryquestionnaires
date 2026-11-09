@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { saveTemplate } from "../services/saveTemplate";
 
 export type QuestionType =
   | "Free Text"
@@ -35,6 +36,11 @@ export default function CreateSession({
     },
   ]);
 
+  const [isSavingTemplate, setIsSavingTemplate] =
+    useState(false);
+
+  const [saveMessage, setSaveMessage] = useState("");
+
   const addQuestion = () => {
     setQuestions([
       ...questions,
@@ -55,19 +61,22 @@ export default function CreateSession({
     );
   };
 
-  const updateQuestionField = (
-    id: number,
-    field: keyof Question,
-    value: any
-  ) => {
-    setQuestions(
-      questions.map((question) =>
-        question.id === id
-          ? { ...question, [field]: value }
-          : question
-      )
-    );
-  };
+const updateQuestionField = (
+  id: number,
+  field: keyof Question,
+  value: any
+) => {
+  setQuestions(
+    questions.map((question) =>
+      question.id === id
+        ? {
+            ...question,
+            [field]: value,
+          }
+        : question
+    )
+  );
+};
 
   const updateOption = (
     questionId: number,
@@ -100,11 +109,51 @@ export default function CreateSession({
         question.id === questionId
           ? {
               ...question,
-              options: [...question.options, ""],
+              options: [
+                ...question.options,
+                "",
+              ],
             }
           : question
       )
     );
+  };
+
+  const handleSaveTemplate = async () => {
+    try {
+      setSaveMessage("");
+
+      if (!sessionName.trim()) {
+        setSaveMessage(
+          "Please enter a session name before saving."
+        );
+        return;
+      }
+
+      setIsSavingTemplate(true);
+
+      await saveTemplate({
+        templateName: sessionName,
+        description: sessionDescription,
+        questions: questions.map((question) => ({
+          text: question.text,
+          type: question.type,
+          options: question.options,
+        })),
+      });
+
+      setSaveMessage(
+        "Template saved successfully."
+      );
+    } catch (error) {
+      console.error(error);
+
+      setSaveMessage(
+        "Unable to save template. Please try again."
+      );
+    } finally {
+      setIsSavingTemplate(false);
+    }
   };
 
   return (
@@ -149,7 +198,8 @@ export default function CreateSession({
         <h2
           style={{
             color: "#005DAA",
-            fontFamily: "Montserrat, sans-serif",
+            fontFamily:
+              "Montserrat, sans-serif",
           }}
         >
           Session Details
@@ -169,13 +219,17 @@ export default function CreateSession({
         />
 
         <label>
-          <strong>Session Description</strong>
+          <strong>
+            Session Description
+          </strong>
         </label>
 
         <textarea
           value={sessionDescription}
           onChange={(e) =>
-            setSessionDescription(e.target.value)
+            setSessionDescription(
+              e.target.value
+            )
           }
           style={{
             ...inputStyle,
@@ -187,139 +241,174 @@ export default function CreateSession({
           style={{
             color: "#005DAA",
             marginTop: "40px",
-            fontFamily: "Montserrat, sans-serif",
+            fontFamily:
+              "Montserrat, sans-serif",
           }}
         >
           Questions
         </h2>
 
-        {questions.map((question, index) => (
-          <div
-            key={question.id}
-            style={{
-              border: "1px solid #D9D9D6",
-              borderRadius: "12px",
-              padding: "20px",
-              marginBottom: "20px",
-            }}
-          >
-            <h3
+        {questions.map(
+          (question, index) => (
+            <div
+              key={question.id}
               style={{
-                color: "#005DAA",
+                border:
+                  "1px solid #D9D9D6",
+                borderRadius: "12px",
+                padding: "20px",
+                marginBottom: "20px",
               }}
             >
-              Question {index + 1}
-            </h3>
+              <h3
+                style={{
+                  color: "#005DAA",
+                }}
+              >
+                Question {index + 1}
+              </h3>
 
-            <input
-              type="text"
-              placeholder="Enter question"
-              value={question.text}
-              onChange={(e) =>
-                updateQuestionField(
-                  question.id,
-                  "text",
-                  e.target.value
-                )
-              }
-              style={inputStyle}
-            />
-
-            <select
-              value={question.type}
-              onChange={(e) => {
-                const selectedType =
-                  e.target.value as QuestionType;
-
-                const defaultOptions =
-                  selectedType ===
-                    "Single Choice" ||
-                  selectedType ===
-                    "Multiple Choice"
-                    ? ["", ""]
-                    : [];
-
-                setQuestions(
-                  questions.map(
-                    (currentQuestion) =>
-                      currentQuestion.id ===
-                      question.id
-                        ? {
-                            ...currentQuestion,
-                            type: selectedType,
-                            options:
-                              defaultOptions,
-                          }
-                        : currentQuestion
-                  )
-                );
-              }}
-              style={inputStyle}
-            >
-              <option>Free Text</option>
-              <option>Single Choice</option>
-              <option>Multiple Choice</option>
-              <option>Rating Scale</option>
-            </select>
-
-            {(question.type ===
-              "Single Choice" ||
-              question.type ===
-                "Multiple Choice") && (
-              <>
-                <h4>Options</h4>
-
-                {question.options.map(
-                  (option, optionIndex) => (
-                    <input
-                      key={optionIndex}
-                      type="text"
-                      placeholder={`Option ${
-                        optionIndex + 1
-                      }`}
-                      value={option}
-                      onChange={(e) =>
-                        updateOption(
-                          question.id,
-                          optionIndex,
-                          e.target.value
-                        )
-                      }
-                      style={inputStyle}
-                    />
-                  )
-                )}
-
-                <button
-                  onClick={() =>
-                    addOption(question.id)
-                  }
-                  style={secondaryButton}
-                >
-                  Add Option
-                </button>
-              </>
-            )}
-
-            {question.type ===
-              "Rating Scale" && (
-              <p>Default scale: 1-5</p>
-            )}
-
-            {questions.length > 1 && (
-              <button
-                onClick={() =>
-                  removeQuestion(
-                    question.id
+              <input
+                type="text"
+                placeholder="Enter question"
+                value={question.text}
+                onChange={(e) =>
+                  updateQuestionField(
+                    question.id,
+                    "text",
+                    e.target.value
                   )
                 }
-                style={removeButton}
+                style={inputStyle}
+              />
+
+              <select
+                value={question.type}
+                onChange={(e) => {
+                  const selectedType =
+                    e.target
+                      .value as QuestionType;
+
+                  const defaultOptions =
+                    selectedType ===
+                      "Single Choice" ||
+                    selectedType ===
+                      "Multiple Choice"
+                      ? ["", ""]
+                      : [];
+
+                  setQuestions(
+                    questions.map(
+                      (
+                        currentQuestion
+                      ) =>
+                        currentQuestion.id ===
+                        question.id
+                          ? {
+                              ...currentQuestion,
+                              type:
+                                selectedType,
+                              options:
+                                defaultOptions,
+                            }
+                          : currentQuestion
+                    )
+                  );
+                }}
+                style={inputStyle}
               >
-                Remove Question
-              </button>
-            )}
-          </div>
-        ))}
+                <option>
+                  Free Text
+                </option>
+                <option>
+                  Single Choice
+                </option>
+                <option>
+                  Multiple Choice
+                </option>
+                <option>
+                  Rating Scale
+                </option>
+              </select>
+
+              {(question.type ===
+                "Single Choice" ||
+                question.type ===
+                  "Multiple Choice") && (
+                <>
+                  <h4>Options</h4>
+
+                  {question.options.map(
+                    (
+                      option,
+                      optionIndex
+                    ) => (
+                      <input
+                        key={
+                          optionIndex
+                        }
+                        type="text"
+                        placeholder={`Option ${
+                          optionIndex + 1
+                        }`}
+                        value={option}
+                        onChange={(
+                          e
+                        ) =>
+                          updateOption(
+                            question.id,
+                            optionIndex,
+                            e.target
+                              .value
+                          )
+                        }
+                        style={
+                          inputStyle
+                        }
+                      />
+                    )
+                  )}
+
+                  <button
+                    onClick={() =>
+                      addOption(
+                        question.id
+                      )
+                    }
+                    style={
+                      secondaryButton
+                    }
+                  >
+                    Add Option
+                  </button>
+                </>
+              )}
+
+              {question.type ===
+                "Rating Scale" && (
+                <p>
+                  Default scale: 1-5
+                </p>
+              )}
+
+              {questions.length >
+                1 && (
+                <button
+                  onClick={() =>
+                    removeQuestion(
+                      question.id
+                    )
+                  }
+                  style={
+                    removeButton
+                  }
+                >
+                  Remove Question
+                </button>
+              )}
+            </div>
+          )
+        )}
 
         <button
           onClick={addQuestion}
@@ -327,6 +416,31 @@ export default function CreateSession({
         >
           Add Question
         </button>
+
+        {saveMessage && (
+          <div
+            style={{
+              marginTop: "20px",
+              padding: "12px",
+              borderRadius: "8px",
+              backgroundColor:
+                saveMessage.includes(
+                  "successfully"
+                )
+                  ? "#E8F5E9"
+                  : "#FFEBEE",
+              color:
+                saveMessage.includes(
+                  "successfully"
+                )
+                  ? "#2E7D32"
+                  : "#C62828",
+              fontWeight: "bold",
+            }}
+          >
+            {saveMessage}
+          </div>
+        )}
 
         <div
           style={{
@@ -337,8 +451,30 @@ export default function CreateSession({
           }}
         >
           <button
+            onClick={
+              handleSaveTemplate
+            }
+            disabled={
+              isSavingTemplate
+            }
+            style={{
+              ...secondaryButton,
+              opacity:
+                isSavingTemplate
+                  ? 0.7
+                  : 1,
+            }}
+          >
+            {isSavingTemplate
+              ? "Saving..."
+              : "Save Template"}
+          </button>
+
+          <button
             onClick={onBack}
-            style={secondaryButton}
+            style={
+              secondaryButton
+            }
           >
             Back
           </button>
