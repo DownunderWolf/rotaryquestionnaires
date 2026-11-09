@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { saveTemplate } from "../services/saveTemplate";
 
 export type QuestionType =
@@ -17,11 +17,13 @@ export interface Question {
 interface CreateSessionProps {
   onBack: () => void;
   onReview: () => void;
+  templateData?: any;
 }
 
 export default function CreateSession({
   onBack,
   onReview,
+  templateData,
 }: CreateSessionProps) {
   const [sessionName, setSessionName] = useState("");
   const [sessionDescription, setSessionDescription] =
@@ -40,6 +42,35 @@ export default function CreateSession({
     useState(false);
 
   const [saveMessage, setSaveMessage] = useState("");
+  useEffect(() => {
+  if (!templateData) return;
+
+  setSessionName(
+    templateData.template?.template_name || ""
+  );
+
+  setSessionDescription(
+    templateData.template?.description || ""
+  );
+
+  if (
+    templateData.questions &&
+    templateData.questions.length > 0
+  ) {
+    setQuestions(
+      templateData.questions.map(
+        (question: any, index: number) => ({
+          id: question.id || index + 1,
+          text: question.question_text,
+          type:
+            question.question_type as QuestionType,
+          options:
+            question.options || [],
+        })
+      )
+    );
+  }
+}, [templateData]);
 
   const addQuestion = () => {
     setQuestions([

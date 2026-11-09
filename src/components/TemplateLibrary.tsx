@@ -11,20 +11,30 @@ interface Template {
 
 interface TemplateLibraryProps {
   onBack: () => void;
+  onOpenTemplate: (
+    templateData: any
+  ) => void;
 }
 
 export default function TemplateLibrary({
   onBack,
+  onOpenTemplate,
 }: TemplateLibraryProps) {
-  const [templates, setTemplates] = useState<
-    Template[]
-  >([]);
+  const [templates, setTemplates] =
+    useState<Template[]>([]);
 
   const [loading, setLoading] =
     useState(true);
 
   const [error, setError] =
     useState("");
+
+  const [
+    openingTemplateId,
+    setOpeningTemplateId,
+  ] = useState<number | null>(
+    null
+  );
 
   useEffect(() => {
     loadTemplates();
@@ -62,6 +72,43 @@ export default function TemplateLibrary({
     }
   }
 
+  async function handleOpenTemplate(
+    templateId: number
+  ) {
+    try {
+      setOpeningTemplateId(
+        templateId
+      );
+
+      const response =
+        await fetch(
+          `/api/template/${templateId}`
+        );
+
+      const data =
+        await response.json();
+
+      if (!data.success) {
+        throw new Error(
+          data.error ||
+            "Unable to load template"
+        );
+      }
+
+      onOpenTemplate(data);
+    } catch (err) {
+      console.error(err);
+
+      alert(
+        "Unable to open template."
+      );
+    } finally {
+      setOpeningTemplateId(
+        null
+      );
+    }
+  }
+
   return (
     <div
       style={{
@@ -78,7 +125,8 @@ export default function TemplateLibrary({
         style={{
           width: "180px",
           display: "block",
-          margin: "0 auto 20px auto",
+          margin:
+            "0 auto 20px auto",
         }}
       />
 
@@ -95,14 +143,17 @@ export default function TemplateLibrary({
 
       <div
         style={{
-          backgroundColor: "#FFFFFF",
+          backgroundColor:
+            "#FFFFFF",
           borderRadius: "12px",
           padding: "24px",
           marginTop: "24px",
         }}
       >
         {loading && (
-          <p>Loading templates...</p>
+          <p>
+            Loading templates...
+          </p>
         )}
 
         {error && (
@@ -145,7 +196,8 @@ export default function TemplateLibrary({
                 <h3
                   style={{
                     marginTop: 0,
-                    color: "#005DAA",
+                    color:
+                      "#005DAA",
                   }}
                 >
                   {
@@ -177,7 +229,8 @@ export default function TemplateLibrary({
 
                 <div
                   style={{
-                    display: "flex",
+                    display:
+                      "flex",
                     gap: "10px",
                     flexWrap:
                       "wrap",
@@ -187,13 +240,20 @@ export default function TemplateLibrary({
                     style={
                       primaryButton
                     }
+                    disabled={
+                      openingTemplateId ===
+                      template.id
+                    }
                     onClick={() =>
-                      alert(
-                        `Load Template ${template.id} coming next`
+                      handleOpenTemplate(
+                        template.id
                       )
                     }
                   >
-                    Open
+                    {openingTemplateId ===
+                    template.id
+                      ? "Opening..."
+                      : "Open"}
                   </button>
 
                   <button
