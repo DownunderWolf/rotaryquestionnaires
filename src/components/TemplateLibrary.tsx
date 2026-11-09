@@ -138,7 +138,7 @@ export default function TemplateLibrary({
             "Montserrat, sans-serif",
         }}
       >
-        Template Library
+        Template Library V3 Test
       </h1>
 
       <div
@@ -147,4 +147,186 @@ export default function TemplateLibrary({
             "#FFFFFF",
           borderRadius: "12px",
           padding: "24px",
- 
+          marginTop: "24px",
+        }}
+      >
+        {loading && (
+          <p>
+            Loading templates...
+          </p>
+        )}
+
+        {error && (
+          <div
+            style={{
+              padding: "16px",
+              backgroundColor:
+                "#FFEBEE",
+              color: "#C62828",
+              borderRadius: "8px",
+            }}
+          >
+            {error}
+          </div>
+        )}
+
+        {!loading &&
+          !error &&
+          templates.length === 0 && (
+            <p>
+              No templates found.
+            </p>
+          )}
+
+        {!loading &&
+          templates.map(
+            (template) => (
+              <div
+                key={template.id}
+                style={{
+                  border:
+                    "1px solid #D9D9D6",
+                  borderRadius:
+                    "12px",
+                  padding: "20px",
+                  marginBottom:
+                    "20px",
+                }}
+              >
+                <h3
+                  style={{
+                    marginTop: 0,
+                    color:
+                      "#005DAA",
+                  }}
+                >
+                  {
+                    template.template_name
+                  }
+                </h3>
+
+                <p>
+                  {
+                    template.description
+                  }
+                </p>
+
+                <p
+                  style={{
+                    color:
+                      "#666666",
+                    fontSize:
+                      "14px",
+                    marginBottom:
+                      "16px",
+                  }}
+                >
+                  Created:{" "}
+                  {
+                    template.created_date
+                  }
+                </p>
+
+                <div
+                  style={{
+                    display:
+                      "flex",
+                    gap: "10px",
+                    flexWrap:
+                      "wrap",
+                  }}
+                >
+                  <button
+                    style={
+                      primaryButton
+                    }
+                    disabled={
+                      openingTemplateId ===
+                      template.id
+                    }
+                    onClick={() =>
+                      handleOpenTemplate(
+                        template.id
+                      )
+                    }
+                  >
+                    {openingTemplateId ===
+                    template.id
+                      ? "Opening..."
+                      : "Open"}
+                  </button>
+
+                  <button
+                    style={
+                      secondaryButton
+                    }
+                  >
+                    Duplicate
+                  </button>
+
+                  <button
+                    style={
+                      secondaryButton
+                    }
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    style={
+                      deleteButton
+                    }
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )
+          )}
+
+        <div
+          style={{
+            marginTop: "30px",
+          }}
+        >
+          <button
+            onClick={onBack}
+            style={
+              secondaryButton
+            }
+          >
+            Back to Dashboard
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+const primaryButton = {
+  padding: "12px 18px",
+  backgroundColor: "#F7A81B",
+  color: "#005DAA",
+  border: "none",
+  borderRadius: "8px",
+  fontWeight: "bold" as const,
+  cursor: "pointer",
+};
+
+const secondaryButton = {
+  padding: "12px 18px",
+  backgroundColor: "#FFFFFF",
+  color: "#005DAA",
+  border: "1px solid #005DAA",
+  borderRadius: "8px",
+  cursor: "pointer",
+};
+
+const deleteButton = {
+  padding: "12px 18px",
+  backgroundColor: "#D32F2F",
+  color: "#FFFFFF",
+  border: "none",
+  borderRadius: "8px",
+  cursor: "pointer",
+};
