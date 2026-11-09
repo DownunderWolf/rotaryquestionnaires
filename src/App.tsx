@@ -1,11 +1,13 @@
 console.log("APP VERSION TEST 123");
 import { useState } from "react";
-const [selectedTemplate, setSelectedTemplate] =
-  useState<any>(null);
+
 import CreateSession from "./components/CreateSession";
 import TemplateLibrary from "./components/TemplateLibrary";
 
 function App() {
+const [selectedTemplate, setSelectedTemplate] =
+  useState<any>(null);
+
   const [currentPage, setCurrentPage] =
     useState("login");
 
@@ -68,7 +70,7 @@ function App() {
           boxSizing: "border-box",
         }}
       >
-        <<TemplateLibrary
+        <TemplateLibrary
   onBack={() =>
     setCurrentPage("dashboard")
   }
@@ -80,7 +82,7 @@ function App() {
   setCurrentPage("createSession");
 }}
 
-/>
+
         />
       </div>
     );
