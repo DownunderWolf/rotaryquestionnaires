@@ -1,3 +1,14 @@
+import { useEffect, useState } from "react";
+
+interface Template {
+  id: number;
+  template_name: string;
+  description: string;
+  created_date: string;
+  modified_date: string;
+  status: string;
+}
+
 interface TemplateLibraryProps {
   onBack: () => void;
 }
@@ -5,6 +16,52 @@ interface TemplateLibraryProps {
 export default function TemplateLibrary({
   onBack,
 }: TemplateLibraryProps) {
+  const [templates, setTemplates] = useState<
+    Template[]
+  >([]);
+
+  const [loading, setLoading] =
+    useState(true);
+
+  const [error, setError] =
+    useState("");
+
+  useEffect(() => {
+    loadTemplates();
+  }, []);
+
+  async function loadTemplates() {
+    try {
+      setLoading(true);
+      setError("");
+
+      const response =
+        await fetch("/api/templates");
+
+      const data =
+        await response.json();
+
+      if (!data.success) {
+        throw new Error(
+          data.error ||
+            "Failed to load templates"
+        );
+      }
+
+      setTemplates(
+        data.templates || []
+      );
+    } catch (err) {
+      console.error(err);
+
+      setError(
+        "Unable to load templates."
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
   return (
     <div
       style={{
@@ -29,7 +86,8 @@ export default function TemplateLibrary({
         style={{
           color: "#FFFFFF",
           textAlign: "center",
-          fontFamily: "Montserrat, sans-serif",
+          fontFamily:
+            "Montserrat, sans-serif",
         }}
       >
         Template Library
@@ -43,57 +101,128 @@ export default function TemplateLibrary({
           marginTop: "24px",
         }}
       >
-        <p
-          style={{
-            color: "#666666",
-          }}
-        >
-          Saved workshop templates will appear here.
-        </p>
+        {loading && (
+          <p>Loading templates...</p>
+        )}
 
-        <div
-          style={{
-            border: "1px solid #D9D9D6",
-            borderRadius: "12px",
-            padding: "20px",
-            marginTop: "20px",
-          }}
-        >
-          <h3
-            style={{
-              marginTop: 0,
-              color: "#005DAA",
-            }}
-          >
-            Membership Workshop
-          </h3>
-
-          <p>Sample template placeholder</p>
-
+        {error && (
           <div
             style={{
-              display: "flex",
-              gap: "10px",
-              flexWrap: "wrap",
+              padding: "16px",
+              backgroundColor:
+                "#FFEBEE",
+              color: "#C62828",
+              borderRadius: "8px",
             }}
           >
-            <button style={primaryButton}>
-              Open
-            </button>
-
-            <button style={secondaryButton}>
-              Duplicate
-            </button>
-
-            <button style={secondaryButton}>
-              Edit
-            </button>
-
-            <button style={deleteButton}>
-              Delete
-            </button>
+            {error}
           </div>
-        </div>
+        )}
+
+        {!loading &&
+          !error &&
+          templates.length === 0 && (
+            <p>
+              No templates found.
+            </p>
+          )}
+
+        {!loading &&
+          templates.map(
+            (template) => (
+              <div
+                key={template.id}
+                style={{
+                  border:
+                    "1px solid #D9D9D6",
+                  borderRadius:
+                    "12px",
+                  padding: "20px",
+                  marginBottom:
+                    "20px",
+                }}
+              >
+                <h3
+                  style={{
+                    marginTop: 0,
+                    color: "#005DAA",
+                  }}
+                >
+                  {
+                    template.template_name
+                  }
+                </h3>
+
+                <p>
+                  {
+                    template.description
+                  }
+                </p>
+
+                <p
+                  style={{
+                    color:
+                      "#666666",
+                    fontSize:
+                      "14px",
+                    marginBottom:
+                      "16px",
+                  }}
+                >
+                  Created:{" "}
+                  {
+                    template.created_date
+                  }
+                </p>
+
+                <div
+                  style={{
+                    display: "flex",
+                    gap: "10px",
+                    flexWrap:
+                      "wrap",
+                  }}
+                >
+                  <button
+                    style={
+                      primaryButton
+                    }
+                    onClick={() =>
+                      alert(
+                        `Load Template ${template.id} coming next`
+                      )
+                    }
+                  >
+                    Open
+                  </button>
+
+                  <button
+                    style={
+                      secondaryButton
+                    }
+                  >
+                    Duplicate
+                  </button>
+
+                  <button
+                    style={
+                      secondaryButton
+                    }
+                  >
+                    Edit
+                  </button>
+
+                  <button
+                    style={
+                      deleteButton
+                    }
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )
+          )}
 
         <div
           style={{
@@ -102,7 +231,9 @@ export default function TemplateLibrary({
         >
           <button
             onClick={onBack}
-            style={secondaryButton}
+            style={
+              secondaryButton
+            }
           >
             Back to Dashboard
           </button>

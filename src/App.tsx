@@ -1,22 +1,32 @@
 import { useState } from "react";
 import CreateSession from "./components/CreateSession";
+import TemplateLibrary from "./components/TemplateLibrary";
 
 function App() {
-  const [currentPage, setCurrentPage] = useState("login");
+  const [currentPage, setCurrentPage] =
+    useState("login");
 
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [username, setUsername] =
+    useState("");
+
+  const [password, setPassword] =
+    useState("");
+
+  const [errorMessage, setErrorMessage] =
+    useState("");
 
   const handleLogin = () => {
     if (
-      username.toLowerCase() === "andyround" &&
+      username.toLowerCase() ===
+        "andyround" &&
       password === "workshop"
     ) {
       setErrorMessage("");
       setCurrentPage("dashboard");
     } else {
-      setErrorMessage("Invalid Username or Password");
+      setErrorMessage(
+        "Invalid Username or Password"
+      );
     }
   };
 
@@ -31,11 +41,34 @@ function App() {
         }}
       >
         <CreateSession
-          onBack={() => setCurrentPage("dashboard")}
+          onBack={() =>
+            setCurrentPage("dashboard")
+          }
           onReview={() =>
             alert(
               "Review Session page will be connected next."
             )
+          }
+        />
+      </div>
+    );
+  }
+
+  if (
+    currentPage === "templateLibrary"
+  ) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundColor: "#005DAA",
+          padding: "24px",
+          boxSizing: "border-box",
+        }}
+      >
+        <TemplateLibrary
+          onBack={() =>
+            setCurrentPage("dashboard")
           }
         />
       </div>
@@ -51,7 +84,8 @@ function App() {
           backgroundColor: "#005DAA",
           padding: "24px",
           boxSizing: "border-box",
-          fontFamily: "Inter, sans-serif",
+          fontFamily:
+            "Inter, sans-serif",
         }}
       >
         <img
@@ -62,7 +96,8 @@ function App() {
             maxWidth: "220px",
             minWidth: "120px",
             display: "block",
-            margin: "0 auto 20px auto",
+            margin:
+              "0 auto 20px auto",
           }}
         />
 
@@ -70,8 +105,10 @@ function App() {
           style={{
             color: "#FFFFFF",
             textAlign: "center",
-            fontFamily: "Montserrat, sans-serif",
-            fontSize: "clamp(2rem, 4vw, 3rem)",
+            fontFamily:
+              "Montserrat, sans-serif",
+            fontSize:
+              "clamp(2rem, 4vw, 3rem)",
           }}
         >
           Workshop Response Hub
@@ -89,7 +126,19 @@ function App() {
             title="Create Session"
             description="Create a new workshop session"
             onClick={() =>
-              setCurrentPage("createSession")
+              setCurrentPage(
+                "createSession"
+              )
+            }
+          />
+
+          <DashboardCard
+            title="Template Library"
+            description="View and manage saved templates"
+            onClick={() =>
+              setCurrentPage(
+                "templateLibrary"
+              )
             }
           />
 
@@ -109,7 +158,9 @@ function App() {
             onClick={() => {
               setUsername("");
               setPassword("");
-              setCurrentPage("login");
+              setCurrentPage(
+                "login"
+              );
             }}
           />
         </div>
@@ -130,7 +181,8 @@ function App() {
         alignItems: "center",
         padding: "24px",
         boxSizing: "border-box",
-        fontFamily: "Inter, sans-serif",
+        fontFamily:
+          "Inter, sans-serif",
       }}
     >
       <img
@@ -148,9 +200,11 @@ function App() {
       <h1
         style={{
           color: "#FFFFFF",
-          fontSize: "clamp(2rem, 4vw, 3rem)",
+          fontSize:
+            "clamp(2rem, 4vw, 3rem)",
           marginBottom: "10px",
-          fontFamily: "Montserrat, sans-serif",
+          fontFamily:
+            "Montserrat, sans-serif",
           textAlign: "center",
         }}
       >
@@ -165,7 +219,8 @@ function App() {
           textAlign: "center",
         }}
       >
-        Anonymous Audience Engagement Platform
+        Anonymous Audience
+        Engagement Platform
       </p>
 
       <div
@@ -175,7 +230,8 @@ function App() {
           backgroundColor: "#FFFFFF",
           borderRadius: "12px",
           padding: "35px",
-          boxShadow: "0 8px 30px rgba(0,0,0,0.20)",
+          boxShadow:
+            "0 8px 30px rgba(0,0,0,0.20)",
         }}
       >
         <input
@@ -183,7 +239,9 @@ function App() {
           placeholder="Username"
           value={username}
           onChange={(e) =>
-            setUsername(e.target.value)
+            setUsername(
+              e.target.value
+            )
           }
           style={inputStyle}
         />
@@ -193,7 +251,9 @@ function App() {
           placeholder="Password"
           value={password}
           onChange={(e) =>
-            setPassword(e.target.value)
+            setPassword(
+              e.target.value
+            )
           }
           style={inputStyle}
         />
@@ -203,7 +263,8 @@ function App() {
             style={{
               color: "#D32F2F",
               fontSize: "14px",
-              marginBottom: "15px",
+              marginBottom:
+                "15px",
             }}
           >
             {errorMessage}
@@ -238,14 +299,16 @@ function DashboardCard({
         borderRadius: "12px",
         padding: "20px",
         cursor: "pointer",
-        boxShadow: "0 4px 10px rgba(0,0,0,0.15)",
+        boxShadow:
+          "0 4px 10px rgba(0,0,0,0.15)",
       }}
     >
       <h3
         style={{
           margin: 0,
           color: "#005DAA",
-          fontFamily: "Montserrat, sans-serif",
+          fontFamily:
+            "Montserrat, sans-serif",
         }}
       >
         {title}
