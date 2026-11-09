@@ -74,7 +74,7 @@ function App() {
   onOpenTemplate={(data) => {
   console.log("APP RECEIVED TEMPLATE");
   console.log(data);
-
+console.log("APP RECEIVED TEMPLATE");
   setSelectedTemplate(data);
   setCurrentPage("createSession");
 }}
