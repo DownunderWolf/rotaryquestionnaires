@@ -513,6 +513,18 @@ const updateQuestionField = (
           </button>
 
           <button
+  onClick={() => {
+    console.log(
+      templateData?.template?.id
+    );
+  }}
+  style={primaryButton}
+>
+  Start Session
+</button>
+
+
+          <button
             onClick={onReview}
             style={primaryButton}
           >
