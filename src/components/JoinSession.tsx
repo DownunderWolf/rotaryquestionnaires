@@ -28,9 +28,70 @@ export default function JoinSession() {
 
         <h2>8EDTRI</h2>
 
-        <p>
-          Waiting for first question...
-        </p>
+        <h3>
+  What is your favourite Rotary project?
+</h3>
+
+<div
+  style={{
+    textAlign: "left",
+    marginTop: "20px",
+  }}
+>
+  <label>
+    <input
+      type="radio"
+      name="question1"
+    />
+    Youth Programs
+  </label>
+
+  <br />
+  <br />
+
+  <label>
+    <input
+      type="radio"
+      name="question1"
+    />
+    Community Service
+  </label>
+
+  <br />
+  <br />
+
+  <label>
+    <input
+      type="radio"
+      name="question1"
+    />
+    Fundraising
+  </label>
+
+  <br />
+  <br />
+
+  <label>
+    <input
+      type="radio"
+      name="question1"
+    />
+    International Projects
+  </label>
+</div>
+
+<button
+  onClick={() =>
+    alert(
+      "Response received. Please keep this page open. The facilitator will release the next question shortly."
+    )
+  }
+  style={{
+    marginTop: "20px",
+  }}
+>
+  Submit Answer
+</button>
       </div>
     </div>
   );
