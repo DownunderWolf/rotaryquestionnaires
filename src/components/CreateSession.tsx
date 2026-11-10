@@ -30,6 +30,8 @@ export default function CreateSession({
     useState("");
     const [sessionCode, setSessionCode] =
   useState("");
+  const [responseCount, setResponseCount] =
+  useState(0);
 
   const [questions, setQuestions] = useState<Question[]>([
     {
@@ -489,6 +491,11 @@ const updateQuestionField = (
     }}
   >
     Session Code: {sessionCode}
+
+    <br />
+    <br />
+
+    Responses Received: {responseCount}
   </div>
 )}
 <br />
@@ -557,6 +564,17 @@ https://rotaryquestionnaires.pages.dev/join/{sessionCode}
 
    setSessionCode(
   result.sessionCode
+);
+const countResponse =
+  await fetch(
+    "/api/response/count"
+  );
+
+const countData =
+  await countResponse.json();
+
+setResponseCount(
+  countData.count
 );
 alert(
   `Session Code: ${result.sessionCode}`
