@@ -117,7 +117,8 @@ const options =
             sessionId: 1,
             questionId: 1,
             responseText:
-              "Youth Programs",
+                 selectedAnswer,
+
           }),
         }
       );
