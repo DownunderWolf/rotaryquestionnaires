@@ -2,6 +2,8 @@ import { useState } from "react";
 
 import CreateSession from "./components/CreateSession";
 import TemplateLibrary from "./components/TemplateLibrary";
+import JoinSession from "./components/JoinSession";
+
 
 function App() {
 const [selectedTemplate, setSelectedTemplate] =
@@ -50,12 +52,16 @@ const [selectedTemplate, setSelectedTemplate] =
     setCurrentPage("dashboard")
   }
   onReview={() =>
-    alert("Review coming soon")
-  }
+  setCurrentPage("joinSession")
+}
+  
 />
       </div>
     );
   }
+if (currentPage === "joinSession") {
+  return <JoinSession />;
+}
 
   if (
     currentPage === "templateLibrary"
