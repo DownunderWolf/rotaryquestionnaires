@@ -32,6 +32,9 @@ export default function JoinSession() {
   loadQuestion();
 }, [sessionCode]);
 
+const options =
+  question?.options || [];
+
   return (
     <div
       style={{
@@ -71,46 +74,24 @@ export default function JoinSession() {
     marginTop: "20px",
   }}
 >
-  <label>
-    <input
-      type="radio"
-      name="question1"
-    />
-    Youth Programs
-  </label>
+  {options.map(
+  (option: string, index: number) => (
+    <div key={index}>
+      <label>
+        <input
+          type="radio"
+          name="question1"
+        />
+        {" "}
+        {option}
+      </label>
 
-  <br />
-  <br />
+      <br />
+      <br />
+    </div>
+  )
+)}
 
-  <label>
-    <input
-      type="radio"
-      name="question1"
-    />
-    Community Service
-  </label>
-
-  <br />
-  <br />
-
-  <label>
-    <input
-      type="radio"
-      name="question1"
-    />
-    Fundraising
-  </label>
-
-  <br />
-  <br />
-
-  <label>
-    <input
-      type="radio"
-      name="question1"
-    />
-    International Projects
-  </label>
 </div>
 
 <button
