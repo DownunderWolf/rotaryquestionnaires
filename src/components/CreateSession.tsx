@@ -477,6 +477,21 @@ const updateQuestionField = (
           </div>
         )}
 
+        {sessionCode && (
+  <div
+    style={{
+      backgroundColor: "#FFFFFF",
+      padding: "16px",
+      borderRadius: "8px",
+      marginTop: "20px",
+      marginBottom: "20px",
+      fontWeight: "bold",
+    }}
+  >
+    Session Code: {sessionCode}
+  </div>
+)}
+
         <div
           style={{
             marginTop: "30px",
