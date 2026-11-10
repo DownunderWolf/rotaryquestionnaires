@@ -28,6 +28,8 @@ export default function CreateSession({
   const [sessionName, setSessionName] = useState("");
   const [sessionDescription, setSessionDescription] =
     useState("");
+    const [sessionCode, setSessionCode] =
+  useState("");
 
   const [questions, setQuestions] = useState<Question[]>([
     {
@@ -534,6 +536,12 @@ const updateQuestionField = (
     const result =
       await response.json();
 
+   setSessionCode(
+  result.sessionCode
+);
+alert(
+  `Session Code: ${result.sessionCode}`
+);
     console.log(
       "START SESSION TEST"
     );
