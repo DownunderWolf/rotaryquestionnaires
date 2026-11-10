@@ -9,8 +9,15 @@ function App() {
 const [selectedTemplate, setSelectedTemplate] =
   useState<any>(null);
 
-  const [currentPage, setCurrentPage] =
-    useState("login");
+ const [currentPage, setCurrentPage] =
+  useState(
+    window.location.pathname.startsWith(
+      "/join/"
+    )
+      ? "joinSession"
+      : "login"
+  );
+
 
   const [username, setUsername] =
     useState("");
