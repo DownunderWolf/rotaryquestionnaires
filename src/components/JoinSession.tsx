@@ -81,11 +81,34 @@ export default function JoinSession() {
 </div>
 
 <button
-  onClick={() =>
+  onClick={async () => {
+    const response =
+      await fetch(
+        "/api/response/save",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type":
+              "application/json",
+          },
+          body: JSON.stringify({
+            sessionId: 1,
+            questionId: 1,
+            responseText:
+              "Youth Programs",
+          }),
+        }
+      );
+
+    const result =
+      await response.json();
+
+    console.log(result);
+
     alert(
       "Response received. Please keep this page open. The facilitator will release the next question shortly."
-    )
-  }
+    );
+  }}
   style={{
     marginTop: "20px",
   }}
