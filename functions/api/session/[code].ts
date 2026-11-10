@@ -45,13 +45,42 @@ export async function onRequestGet(
     .bind(session?.template_id)
     .all();
 
+const questions =
+  questionsResult.results || [];
+
+const questionsWithOptions =
+  await Promise.all(
+    questions.map(
+      async (question: any) => {
+        const optionsResult =
+          await context.env.DB.prepare(`
+            SELECT
+              option_text
+            FROM question_options
+            WHERE question_id = ?
+            ORDER BY display_order
+          `)
+            .bind(question.id)
+            .all();
+
+        return {
+          ...question,
+          options:
+            optionsResult.results?.map(
+              (option: any) =>
+                option.option_text
+            ) || [],
+        };
+      }
+    )
+  );
+
 return Response.json({
   success: true,
   session,
   questions:
-    questionsResult.results || [],
-});
-  } catch (error) {
+    questionsWithOptions,
+});  } catch (error) {
     return Response.json(
       {
         success: false,
