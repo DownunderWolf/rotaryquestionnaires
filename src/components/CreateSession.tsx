@@ -491,7 +491,11 @@ const updateQuestionField = (
     Session Code: {sessionCode}
   </div>
 )}
-
+<br />
+<br />
+Join URL:
+<br />
+https://rotaryquestionnaires.pages.dev/join/{sessionCode}
         <div
           style={{
             marginTop: "30px",
