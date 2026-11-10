@@ -512,39 +512,45 @@ const updateQuestionField = (
             Back
           </button>
 
-          <button
-onClick={async () => {
-  const response = await fetch(
-    "/api/session/start",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type":
-          "application/json",
-      },
-      body: JSON.stringify({
-        templateId:
-          templateData?.template?.id,
-        audienceName:
-          sessionName,
-      }),
-    }
-  );
+      <button
+  onClick={async () => {
+    const response = await fetch(
+      "/api/session/start",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          templateId:
+            templateData?.template?.id,
+          audienceName:
+            sessionName,
+        }),
+      }
+    );
 
-  const result =
-    await response.json();
+    const result =
+      await response.json();
 
-console.log("START SESSION TEST");
-console.log(result);
-}}
+    console.log(
+      "START SESSION TEST"
+    );
+    console.log(result);
+  }}
+  style={primaryButton}
+>
+  Start Session
+</button>
 
 
-          <button>
-            onClick={onReview}
-            style={primaryButton}
-          >
-            Review Session
-          </button>
+         <button
+  onClick={onReview}
+  style={primaryButton}
+>
+  Review Session
+</button>
         </div>
       </div>
     </div>
