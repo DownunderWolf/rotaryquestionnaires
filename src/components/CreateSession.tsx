@@ -42,6 +42,9 @@ export default function CreateSession({
 
   const data =
     await response.json();
+    
+console.log("RESULTS DATA");
+console.log(data);
 
   setResults(
     data.results || []
