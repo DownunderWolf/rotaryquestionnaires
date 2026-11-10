@@ -9,6 +9,9 @@ export default function JoinSession() {
     const [question, setQuestion] =
   useState<any>(null);
 
+  const [selectedAnswer, setSelectedAnswer] =
+  useState("");
+
   useEffect(() => {
   async function loadQuestion() {
     const response =
@@ -78,10 +81,15 @@ const options =
   (option: string, index: number) => (
     <div key={index}>
       <label>
-        <input
-          type="radio"
-          name="question1"
-        />
+       <input
+  type="radio"
+  name="question1"
+  value={option}
+  checked={selectedAnswer === option}
+  onChange={() =>
+    setSelectedAnswer(option)
+  }
+/>
         {" "}
         {option}
       </label>
