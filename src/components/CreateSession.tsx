@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { saveTemplate } from "../services/saveTemplate";
+import QRCode from "react-qr-code";
 
 export type QuestionType =
   | "Free Text"
@@ -42,7 +43,7 @@ export default function CreateSession({
 
   const data =
     await response.json();
-    
+
 console.log("RESULTS DATA");
 console.log(data);
 
@@ -514,6 +515,14 @@ const updateQuestionField = (
     <br />
 
     Responses Received: {responseCount}
+
+    <br />
+  <br />
+
+  <QRCode
+    value={`https://rotaryquestionnaires.pages.dev/join/${sessionCode}`}
+    size={180}
+  />
   </div>
 )}
 
