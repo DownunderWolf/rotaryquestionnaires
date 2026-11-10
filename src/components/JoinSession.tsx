@@ -1,4 +1,37 @@
+import { useEffect, useState } from "react";
+
 export default function JoinSession() {
+  const sessionCode =
+  window.location.pathname
+    .split("/")
+    .pop();
+
+    const [question, setQuestion] =
+  useState<any>(null);
+
+  useEffect(() => {
+  async function loadQuestion() {
+    const response =
+      await fetch(
+        `/api/session/${sessionCode}`
+      );
+
+    const data =
+      await response.json();
+
+    if (
+      data.questions &&
+      data.questions.length > 0
+    ) {
+      setQuestion(
+        data.questions[0]
+      );
+    }
+  }
+
+  loadQuestion();
+}, [sessionCode]);
+
   return (
     <div
       style={{
@@ -26,12 +59,12 @@ export default function JoinSession() {
           Connected to Session
         </p>
 
-        <h2>8EDTRI</h2>
+        <h2>{sessionCode}</h2>
 
-        <h3>
-  What is your favourite Rotary project?
+    <h3>
+  {question?.question_text ||
+    "Loading question..."}
 </h3>
-
 <div
   style={{
     textAlign: "left",
