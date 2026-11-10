@@ -123,10 +123,9 @@ const options =
         }
       );
 
-    const result =
       await response.json();
 
-    console.log(result);
+ 
 
     alert(
       "Response received. Please keep this page open. The facilitator will release the next question shortly."
