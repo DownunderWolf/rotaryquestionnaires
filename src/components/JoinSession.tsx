@@ -14,6 +14,9 @@ export default function JoinSession() {
   const [selectedAnswer, setSelectedAnswer] =
   useState("");
 
+const [selectedAnswers, setSelectedAnswers] =
+  useState<string[]>([]);
+
   useEffect(() => {
   async function loadQuestion() {
     const response =
@@ -106,29 +109,66 @@ const options =
       }}
     />
   ) : (
-    options.map(
-      (option: string, index: number) => (
-        <div key={index}>
-          <label>
-            <input
-              type="radio"
-              name="question1"
-              value={option}
-              checked={
-                selectedAnswer === option
+    question?.question_type ===
+"Combination Choice" ? (
+  options.map(
+    (option: string, index: number) => (
+      <div key={index}>
+        <label>
+          <input
+            type="checkbox"
+            checked={selectedAnswers.includes(
+              option
+            )}
+            onChange={(e) => {
+              if (e.target.checked) {
+                setSelectedAnswers([
+                  ...selectedAnswers,
+                  option,
+                ]);
+              } else {
+                setSelectedAnswers(
+                  selectedAnswers.filter(
+                    (item) =>
+                      item !== option
+                  )
+                );
               }
-              onChange={() =>
-                setSelectedAnswer(option)
-              }
-            />
-            {" "}
-            {option}
-          </label>
-          <br />
-          <br />
-        </div>
-      )
+            }}
+          />
+          {" "}
+          {option}
+        </label>
+        <br />
+        <br />
+      </div>
     )
+  )
+) : (
+  options.map(
+    (option: string, index: number) => (
+      <div key={index}>
+        <label>
+          <input
+            type="radio"
+            name="question1"
+            value={option}
+            checked={
+              selectedAnswer === option
+            }
+            onChange={() =>
+              setSelectedAnswer(option)
+            }
+          />
+          {" "}
+          {option}
+        </label>
+        <br />
+        <br />
+      </div>
+    )
+  )
+)
   )}
 </div>
 
@@ -149,7 +189,10 @@ const options =
             sessionId,
             questionId: 1,
             responseText:
-                 selectedAnswer,
+  question?.question_type ===
+  "Combination Choice"
+    ? selectedAnswers.join(" + ")
+    : selectedAnswer,
 
           }),
         }
