@@ -35,6 +35,17 @@ export default function CreateSession({
   useState(0);
   const [results, setResults] =
   useState<any[]>([]);
+   
+  useEffect(() => {
+  const interval = setInterval(
+    loadResults,
+    5000
+  );
+
+  return () =>
+    clearInterval(interval);
+}, []);
+  
   async function loadResults() {
   const response =
     await fetch(
