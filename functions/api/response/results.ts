@@ -9,6 +9,14 @@ export async function onRequestGet(
   }
 ) {
   try {
+
+    const url =
+  new URL(context.request.url);
+
+const sessionId =
+  url.searchParams.get(
+    "sessionId"
+  );
     const results =
       await context.env.DB.prepare(`
         SELECT
