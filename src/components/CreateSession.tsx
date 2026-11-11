@@ -7,6 +7,7 @@ export type QuestionType =
   | "Word Cloud"
   | "Single Choice"
   | "Multiple Choice"
+  | "Combination Choice"
   | "Rating Scale";
 
 export interface Question {
@@ -430,7 +431,11 @@ const updateQuestionField = (
                 <option>
                   Multiple Choice
                 </option>
-                
+
+                <option>
+                  Combination Choice
+               </option>
+
                 <option>
                   Rating Scale
                 </option>
