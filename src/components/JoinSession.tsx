@@ -8,6 +8,8 @@ export default function JoinSession() {
 
     const [question, setQuestion] =
   useState<any>(null);
+  const [sessionId, setSessionId] =
+  useState<number | null>(null);
 
   const [selectedAnswer, setSelectedAnswer] =
   useState("");
@@ -19,17 +21,21 @@ export default function JoinSession() {
         `/api/session/${sessionCode}`
       );
 
-    const data =
-      await response.json();
+      const data =
+  await response.json();
 
     if (
-      data.questions &&
-      data.questions.length > 0
-    ) {
-      setQuestion(
-        data.questions[0]
-      );
-    }
+  data.questions &&
+  data.questions.length > 0
+) {
+  setQuestion(
+    data.questions[0]
+  );
+
+  setSessionId(
+    data.session.id
+  );
+}
   }
 
   loadQuestion();
@@ -114,7 +120,7 @@ const options =
               "application/json",
           },
           body: JSON.stringify({
-            sessionId: 1,
+            sessionId,
             questionId: 1,
             responseText:
                  selectedAnswer,
