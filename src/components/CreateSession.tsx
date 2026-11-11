@@ -50,15 +50,21 @@ export default function CreateSession({
     clearInterval(interval);
 }, [sessionId]);
   
-  async function loadResults() {
-    if (!sessionId) {
-  return;
-}
+ async function loadResults() {
+
+  console.log(
+    "LOAD RESULTS SESSION",
+    sessionId
+  );
+
+  if (!sessionId) {
+    return;
+  }
+
   const response =
     await fetch(
-  `/api/response/results?sessionId=${sessionId}`
-);
-
+      `/api/response/results?sessionId=${sessionId}`
+    );
   const data =
     await response.json();
 
