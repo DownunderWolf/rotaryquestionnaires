@@ -83,28 +83,54 @@ const options =
     marginTop: "20px",
   }}
 >
-  {options.map(
-  (option: string, index: number) => (
-    <div key={index}>
-      <label>
-       <input
-  type="radio"
-  name="question1"
-  value={option}
-  checked={selectedAnswer === option}
-  onChange={() =>
-    setSelectedAnswer(option)
-  }
-/>
-        {" "}
-        {option}
-      </label>
-
-      <br />
-      <br />
-    </div>
-  )
-)}
+  <div
+  style={{
+    textAlign: "left",
+    marginTop: "20px",
+  }}
+>
+  {question?.question_type === "Word Cloud" ? (
+    <textarea
+      placeholder="Enter words separated by commas"
+      value={selectedAnswer}
+      onChange={(e) =>
+        setSelectedAnswer(e.target.value)
+      }
+      style={{
+        width: "100%",
+        minHeight: "120px",
+        padding: "12px",
+        borderRadius: "8px",
+        border: "1px solid #D9D9D6",
+        boxSizing: "border-box",
+      }}
+    />
+  ) : (
+    options.map(
+      (option: string, index: number) => (
+        <div key={index}>
+          <label>
+            <input
+              type="radio"
+              name="question1"
+              value={option}
+              checked={
+                selectedAnswer === option
+              }
+              onChange={() =>
+                setSelectedAnswer(option)
+              }
+            />
+            {" "}
+            {option}
+          </label>
+          <br />
+          <br />
+        </div>
+      )
+    )
+  )}
+</div>
 
 </div>
 
