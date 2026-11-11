@@ -388,13 +388,15 @@ const updateQuestionField = (
                     e.target
                       .value as QuestionType;
 
-                  const defaultOptions =
-                    selectedType ===
+                 const defaultOptions =
+                   selectedType ===
                       "Single Choice" ||
                     selectedType ===
-                      "Multiple Choice"
-                      ? ["", ""]
-                      : [];
+                      "Multiple Choice" ||
+                     selectedType ===
+                       "Combination Choice"
+                         ? ["", ""]
+                         : [];
 
                   setQuestions(
                     questions.map(
@@ -442,9 +444,11 @@ const updateQuestionField = (
               </select>
 
               {(question.type ===
-                "Single Choice" ||
+                   "Single Choice" ||
                 question.type ===
-                  "Multiple Choice") && (
+                   "Multiple Choice" ||
+                 question.type ===
+                    "Combination Choice") && (
                 <>
                   <h4>Options</h4>
 
