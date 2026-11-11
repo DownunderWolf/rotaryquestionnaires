@@ -671,9 +671,7 @@ setResponseCount(
 );
 
 
-alert(
-  `Session Code: ${result.sessionCode}`
-);
+
     console.log(
       "START SESSION TEST"
     );
