@@ -92,9 +92,9 @@ const options =
     marginTop: "20px",
   }}
 >
-  {question?.question_type === "Word Cloud" ? (
+ {question?.question_type === "Free Text" ? (
     <textarea
-      placeholder="Enter words separated by commas"
+      placeholder="Enter your response"
       value={selectedAnswer}
       onChange={(e) =>
         setSelectedAnswer(e.target.value)
@@ -108,6 +108,24 @@ const options =
         boxSizing: "border-box",
       }}
     />
+) : question?.question_type === "Word Cloud" ? (
+    <textarea
+      placeholder="Enter words separated by commas or periods"
+      value={selectedAnswer}
+      onChange={(e) =>
+        setSelectedAnswer(e.target.value)
+      }
+      style={{
+        width: "100%",
+        minHeight: "120px",
+        padding: "12px",
+        borderRadius: "8px",
+        border: "1px solid #D9D9D6",
+        boxSizing: "border-box",
+      }}
+    />
+    
+    
   ) : (
     question?.question_type ===
 "Combination Choice" ? (
