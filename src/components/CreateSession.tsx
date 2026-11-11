@@ -74,6 +74,17 @@ console.log(data);
   setResults(
     data.results || []
   );
+  const countResponse =
+  await fetch(
+    `/api/response/count?sessionId=${sessionId}`
+  );
+
+const countData =
+  await countResponse.json();
+
+setResponseCount(
+  countData.count
+);
 }
 
   const [questions, setQuestions] = useState<Question[]>([
