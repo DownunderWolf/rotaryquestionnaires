@@ -9,11 +9,22 @@ export async function onRequestGet(
   }
 ) {
   try {
-    const result =
-      await context.env.DB.prepare(`
-        SELECT COUNT(*) AS total
-        FROM responses
-      `).first();
+const url =
+  new URL(context.request.url);
+
+const sessionId =
+  url.searchParams.get(
+    "sessionId"
+  );
+
+  const result =
+  await context.env.DB.prepare(`
+    SELECT COUNT(*) AS total
+    FROM responses
+    WHERE session_id = ?
+  `)
+  .bind(sessionId)
+  .first();
 
     return Response.json({
       success: true,
