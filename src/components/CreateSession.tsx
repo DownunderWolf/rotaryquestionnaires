@@ -51,6 +51,9 @@ export default function CreateSession({
 }, []);
   
   async function loadResults() {
+    if (!sessionId) {
+  return;
+}
   const response =
     await fetch(
   `/api/response/results?sessionId=${sessionId}`
