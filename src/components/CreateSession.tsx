@@ -27,6 +27,8 @@ export default function CreateSession({
   templateData,
 }: CreateSessionProps) {
   const [sessionName, setSessionName] = useState("");
+  const [sessionId, setSessionId] =
+  useState<number | null>(null);
   const [sessionDescription, setSessionDescription] =
     useState("");
     const [sessionCode, setSessionCode] =
@@ -51,8 +53,8 @@ export default function CreateSession({
   async function loadResults() {
   const response =
     await fetch(
-      "/api/response/results"
-    );
+  `/api/response/results?sessionId=${sessionId}`
+);
 
   const data =
     await response.json();
@@ -628,18 +630,20 @@ https://rotaryquestionnaires.pages.dev/join/{sessionCode}
    setSessionCode(
   result.sessionCode
 );
+setSessionId(
+  result.sessionId
+);
 const countResponse =
   await fetch(
-    "/api/response/count"
+    `/api/response/count?sessionId=${result.sessionId}`
   );
-
 const countData =
   await countResponse.json();
 
 setResponseCount(
   countData.count
 );
-await loadResults();
+
 
 alert(
   `Session Code: ${result.sessionCode}`
