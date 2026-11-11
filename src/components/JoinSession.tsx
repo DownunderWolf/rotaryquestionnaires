@@ -110,7 +110,12 @@ const options =
     />
 ) : question?.question_type === "Word Cloud" ? (
     <textarea
-      placeholder="Enter words separated by commas or periods"
+      placeholder={`Enter one word or phrase per line
+
+Example:
+Service
+Community
+Friendship`}
       value={selectedAnswer}
       onChange={(e) =>
         setSelectedAnswer(e.target.value)
