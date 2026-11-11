@@ -18,14 +18,17 @@ const sessionId =
     "sessionId"
   );
     const results =
-      await context.env.DB.prepare(`
-        SELECT
-          response_text,
-          COUNT(*) AS total
-        FROM responses
-        GROUP BY response_text
-        ORDER BY total DESC
-      `).all();
+  await context.env.DB.prepare(`
+    SELECT
+      response_text,
+      COUNT(*) AS total
+    FROM responses
+    WHERE session_id = ?
+    GROUP BY response_text
+    ORDER BY total DESC
+  `)
+  .bind(sessionId)
+  .all();
 
     return Response.json({
       success: true,
