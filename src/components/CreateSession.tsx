@@ -37,10 +37,12 @@ export default function CreateSession({
   useState<any[]>([]);
    
   useEffect(() => {
-  const interval = setInterval(
-    loadResults,
-    5000
-  );
+  console.log("AUTO REFRESH STARTED");
+
+  const interval = setInterval(() => {
+    console.log("AUTO REFRESH TICK");
+    loadResults();
+  }, 5000);
 
   return () =>
     clearInterval(interval);
