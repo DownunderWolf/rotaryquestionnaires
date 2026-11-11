@@ -48,7 +48,7 @@ export default function CreateSession({
 
   return () =>
     clearInterval(interval);
-}, []);
+}, [sessionId]);
   
   async function loadResults() {
     if (!sessionId) {
