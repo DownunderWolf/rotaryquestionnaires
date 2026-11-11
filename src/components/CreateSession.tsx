@@ -4,6 +4,7 @@ import QRCode from "react-qr-code";
 
 export type QuestionType =
   | "Free Text"
+  | "Word Cloud"
   | "Single Choice"
   | "Multiple Choice"
   | "Rating Scale";
@@ -417,12 +418,19 @@ const updateQuestionField = (
                 <option>
                   Free Text
                 </option>
+
+                <option>
+                  Word Cloud
+                </option>
+
                 <option>
                   Single Choice
                 </option>
+
                 <option>
                   Multiple Choice
                 </option>
+                
                 <option>
                   Rating Scale
                 </option>
