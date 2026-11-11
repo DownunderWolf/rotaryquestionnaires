@@ -82,9 +82,15 @@ console.log(data);
 const countData =
   await countResponse.json();
 
+  console.log(
+  "COUNT DATA",
+  countData
+);
+
 setResponseCount(
   countData.count
 );
+  
 }
 
   const [questions, setQuestions] = useState<Question[]>([
