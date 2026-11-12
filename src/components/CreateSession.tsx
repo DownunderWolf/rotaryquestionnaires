@@ -595,16 +595,49 @@ const updateQuestionField = (
   >
     <h3>Results</h3>
 
-    {results.map(
-      (result: any, index: number) => (
-        <div key={index}>
-          {result.response_text}
-          {" : "}
-          {result.total}
-        </div>
-      )
-    )}
-  </div>
+<div
+  style={{
+    border: "1px solid #D9D9D6",
+    borderRadius: "12px",
+    padding: "20px",
+    marginBottom: "20px",
+    display: "flex",
+    flexWrap: "wrap",
+    gap: "16px",
+    justifyContent: "center",
+    alignItems: "center",
+    minHeight: "180px",
+  }}
+>
+  {results.map(
+    (
+      result: any, index: number) => (
+      <span
+        key={index}
+        style={{
+          fontSize: `${16 +
+            Number(result.total) *
+              6}px`,
+          fontWeight: "bold",
+          color: "#005DAA",
+        }}
+      >
+        {result.response_text}
+      </span>
+    )
+  )}
+</div>
+
+{results.map(
+  (result: any, index: number) => (
+    <div key={index}>
+      {result.response_text}
+      {" : "}
+      {result.total}
+    </div>
+  )
+)}
+</div>
 )}
 
 <br />
