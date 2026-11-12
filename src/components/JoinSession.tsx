@@ -199,29 +199,62 @@ Friendship`}
 
 <button
   onClick={async () => {
-    const response =
-      await fetch(
-        "/api/response/save",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type":
-              "application/json",
-          },
-          body: JSON.stringify({
-            sessionId,
-            questionId: 1,
-            responseText:
+if (
   question?.question_type ===
-  "Combination Choice"
-    ? selectedAnswers.join(" + ")
-    : selectedAnswer,
-
-          }),
-        }
+  "Word Cloud"
+) {
+  const entries =
+    selectedAnswer
+      .split("\n")
+      .map((item) =>
+        item.trim()
+      )
+      .filter(
+        (item) =>
+          item.length > 0
       );
 
-      await response.json();
+  for (const entry of entries) {
+    await fetch(
+      "/api/response/save",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          sessionId,
+          questionId: 1,
+          responseText: entry,
+        }),
+      }
+    );
+  }
+} else {
+  const response =
+    await fetch(
+      "/api/response/save",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          sessionId,
+          questionId: 1,
+          responseText:
+            question?.question_type ===
+            "Combination Choice"
+              ? selectedAnswers.join(" + ")
+              : selectedAnswer,
+        }),
+      }
+    );
+
+  await response.json();
+}
 
  
 
