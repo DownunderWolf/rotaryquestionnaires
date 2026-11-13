@@ -55,6 +55,31 @@ if (showSummary) {
     >
       <h1>Questionnaire Test</h1>
 
+      <div
+  style={{
+    width: "100%",
+    height: "12px",
+    backgroundColor: "#D9D9D6",
+    borderRadius: "10px",
+    overflow: "hidden",
+    marginBottom: "15px",
+  }}
+>
+  <div
+    style={{
+      width: `${
+        ((currentQuestion + 1) /
+          questions.length) *
+        100
+      }%`,
+      height: "100%",
+      backgroundColor: "#F7A81B",
+      transition:
+        "width 0.3s ease",
+    }}
+  />
+</div>
+
       <p>
         Question {currentQuestion + 1} of {questions.length}
       </p>
