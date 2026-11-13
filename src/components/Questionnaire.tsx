@@ -4,7 +4,20 @@ import { questions } from "../data/questions";
 function Questionnaire() {
   const [currentQuestion, setCurrentQuestion] = useState(0);
 
+  const [answers, setAnswers] = useState<
+  Record<number, string>
+>({});
+
   const question = questions[currentQuestion];
+
+  const handleAnswerChange = (
+  value: string
+) => {
+  setAnswers({
+    ...answers,
+    [question.id]: value,
+  });
+};
 
   return (
     <div
@@ -22,6 +35,21 @@ function Questionnaire() {
       </p>
 
       <h2>{question.text}</h2>
+
+      <input
+  type="text"
+  value={answers[question.id] || ""}
+  onChange={(e) =>
+    handleAnswerChange(
+      e.target.value
+    )
+  }
+  style={{
+    width: "100%",
+    padding: "12px",
+    marginBottom: "20px",
+  }}
+/>
 
       <button
         onClick={() =>
