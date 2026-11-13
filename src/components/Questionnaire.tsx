@@ -2,15 +2,18 @@ import { useState } from "react";
 import { questions } from "../data/questions";
 
 function Questionnaire() {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestion, setCurrentQuestion] =
+  useState(0);
 
-  const [answers, setAnswers] = useState<
-  Record<number, string>
->({});
+const [answers, setAnswers] =
+  useState<Record<number, string>>({});
 
-  const question = questions[currentQuestion];
+const [showSummary, setShowSummary] =
+  useState(false);
 
-  const handleAnswerChange = (
+const question = questions[currentQuestion];
+
+const handleAnswerChange = (
   value: string
 ) => {
   setAnswers({
@@ -18,6 +21,28 @@ function Questionnaire() {
     [question.id]: value,
   });
 };
+
+if (showSummary) {
+  return (
+    <div
+      style={{
+        padding: "30px",
+        backgroundColor: "#005DAA",
+        color: "white",
+        minHeight: "100vh",
+      }}
+    >
+      <h1>Questionnaire Summary</h1>
+
+      {questions.map((q) => (
+        <div key={q.id}>
+          <h3>{q.text}</h3>
+          <p>{answers[q.id] || "No answer"}</p>
+        </div>
+      ))}
+    </div>
+  );
+}
 
   return (
     <div
@@ -61,19 +86,26 @@ function Questionnaire() {
         Previous
       </button>
 
-      <button
-        onClick={() =>
-          setCurrentQuestion(
-            Math.min(
-              currentQuestion + 1,
-              questions.length - 1
-            )
-          )
-        }
-        style={{ marginLeft: "10px" }}
-      >
-        Next
-      </button>
+     <button
+  onClick={() => {
+    if (
+      currentQuestion ===
+      questions.length - 1
+    ) {
+      setShowSummary(true);
+    } else {
+      setCurrentQuestion(
+        currentQuestion + 1
+      );
+    }
+  }}
+  style={{ marginLeft: "10px" }}
+>
+  {currentQuestion ===
+  questions.length - 1
+    ? "Finish"
+    : "Next"}
+</button>
     </div>
   );
 }
