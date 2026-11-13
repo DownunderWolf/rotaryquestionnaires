@@ -3,7 +3,6 @@ import { useState } from "react";
 import CreateSession from "./components/CreateSession";
 import TemplateLibrary from "./components/TemplateLibrary";
 import JoinSession from "./components/JoinSession";
-import { questions } from "./data/questions";
 import Questionnaire from "./components/Questionnaire";
 
 
