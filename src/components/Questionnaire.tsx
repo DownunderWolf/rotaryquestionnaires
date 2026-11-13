@@ -61,21 +61,45 @@ if (showSummary) {
 
       <h2>{question.text}</h2>
 
-      <input
-  type="text"
-  value={answers[question.id] || ""}
-  onChange={(e) =>
-    handleAnswerChange(
-      e.target.value
-    )
-  }
-  style={{
-    width: "100%",
-    padding: "12px",
-    marginBottom: "20px",
-  }}
-/>
-
+{question.type === "text" ? (
+  <input
+    type="text"
+    value={answers[question.id] || ""}
+    onChange={(e) =>
+      handleAnswerChange(
+        e.target.value
+      )
+    }
+    style={{
+      width: "100%",
+      padding: "12px",
+      marginBottom: "20px",
+    }}
+  />
+) : (
+  <div
+    style={{
+      display: "flex",
+      gap: "10px",
+      marginBottom: "20px",
+    }}
+  >
+    {[1, 2, 3, 4, 5].map(
+      (score) => (
+        <button
+          key={score}
+          onClick={() =>
+            handleAnswerChange(
+              score.toString()
+            )
+          }
+        >
+          {score}
+        </button>
+      )
+    )}
+  </div>
+)}
       <button
         onClick={() =>
           setCurrentQuestion(
