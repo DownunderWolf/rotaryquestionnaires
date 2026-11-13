@@ -79,23 +79,44 @@ if (showSummary) {
 ) : (
   <div
     style={{
-      display: "flex",
-      gap: "10px",
-      marginBottom: "20px",
-    }}
+  display: "flex",
+  justifyContent: "center",
+  gap: "12px",
+  flexWrap: "wrap",
+  marginBottom: "20px",
+}}
   >
     {[1, 2, 3, 4, 5].map(
       (score) => (
-        <button
-          key={score}
-          onClick={() =>
-            handleAnswerChange(
-              score.toString()
-            )
-          }
-        >
-          {score}
-        </button>
+       <button
+  key={score}
+  onClick={() =>
+    handleAnswerChange(
+      score.toString()
+    )
+  }
+  style={{
+    width: "60px",
+    height: "60px",
+    borderRadius: "12px",
+    border: "2px solid #FFFFFF",
+    fontSize: "20px",
+    fontWeight: "bold",
+    cursor: "pointer",
+    backgroundColor:
+      answers[question.id] ===
+      score.toString()
+        ? "#F7A81B"
+        : "#FFFFFF",
+    color:
+      answers[question.id] ===
+      score.toString()
+        ? "#005DAA"
+        : "#005DAA",
+  }}
+>
+  {score}
+</button>
       )
     )}
   </div>
