@@ -3,6 +3,8 @@ import { useState } from "react";
 import CreateSession from "./components/CreateSession";
 import TemplateLibrary from "./components/TemplateLibrary";
 import JoinSession from "./components/JoinSession";
+import { questions } from "./data/questions";
+import Questionnaire from "./components/Questionnaire";
 
 
 function App() {
@@ -99,6 +101,11 @@ if (currentPage === "joinSession") {
     );
   }
 
+  if (currentPage === "questionnaire") {
+  return <Questionnaire />;
+}
+
+
   if (currentPage === "dashboard") {
     return (
       <div
@@ -175,6 +182,14 @@ if (currentPage === "joinSession") {
             title="Settings"
             description="Coming soon"
           />
+
+          <DashboardCard
+  title="Questionnaire Test"
+  description="Run questionnaire prototype"
+  onClick={() =>
+    setCurrentPage("questionnaire")
+  }
+/>
 
           <DashboardCard
             title="Logout"
