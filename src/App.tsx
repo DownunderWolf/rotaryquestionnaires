@@ -48,9 +48,9 @@ const [selectedTemplate, setSelectedTemplate] =
     return (
       <div
         style={{
-          minHeight: "100vh",
+          minHeight: "100dvh",
           backgroundColor: "#005DAA",
-          padding: "24px",
+          padding: "16px",
           boxSizing: "border-box",
         }}
       >
@@ -110,9 +110,9 @@ if (currentPage === "joinSession") {
       <div
         style={{
           width: "100vw",
-          minHeight: "100vh",
+          minHeight: "100dvh",
           backgroundColor: "#005DAA",
-          padding: "24px",
+          padding: "16px",
           boxSizing: "border-box",
           fontFamily:
             "Inter, sans-serif",
@@ -210,13 +210,13 @@ if (currentPage === "joinSession") {
     <div
       style={{
         width: "100vw",
-        minHeight: "100vh",
+        minHeight: "100dvh",
         backgroundColor: "#005DAA",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        padding: "24px",
+        padding: "16px",
         boxSizing: "border-box",
         fontFamily:
           "Inter, sans-serif",
