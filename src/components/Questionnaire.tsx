@@ -122,16 +122,27 @@ if (showSummary) {
   </div>
 )}
       <button
-        onClick={() =>
-          setCurrentQuestion(
-            Math.max(currentQuestion - 1, 0)
-          )
-        }
-      >
-        Previous
-      </button>
+  onClick={() =>
+    setCurrentQuestion(
+      Math.max(currentQuestion - 1, 0)
+    )
+  }
+  style={{
+    minWidth: "120px",
+    height: "55px",
+    borderRadius: "10px",
+    border: "none",
+    backgroundColor: "#D9D9D6",
+    color: "#005DAA",
+    fontSize: "18px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  }}
+>
+  Previous
+</button>
 
-     <button
+<button
   onClick={() => {
     if (
       currentQuestion ===
@@ -144,15 +155,27 @@ if (showSummary) {
       );
     }
   }}
-  style={{ marginLeft: "10px" }}
+  style={{
+    marginLeft: "10px",
+    minWidth: "120px",
+    height: "55px",
+    borderRadius: "10px",
+    border: "none",
+    backgroundColor: "#F7A81B",
+    color: "#005DAA",
+    fontSize: "18px",
+    fontWeight: "bold",
+    cursor: "pointer",
+  }}
 >
   {currentQuestion ===
   questions.length - 1
     ? "Finish"
     : "Next"}
 </button>
-    </div>
-  );
+
+</div>
+);
 }
 
 export default Questionnaire;
