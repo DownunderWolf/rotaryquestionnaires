@@ -77,7 +77,7 @@ if (currentPage === "joinSession") {
     return (
       <div
         style={{
-          minHeight: "100vh",
+          minHeight: "100dvh",
           backgroundColor: "#005DAA",
           padding: "24px",
           boxSizing: "border-box",
