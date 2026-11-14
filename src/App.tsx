@@ -71,6 +71,25 @@ if (currentPage === "joinSession") {
   return <JoinSession />;
 }
 
+if (
+  window.location.pathname.startsWith(
+    "/presentation/"
+  )
+) {
+  return (
+    <div
+      style={{
+        padding: "40px",
+        color: "white",
+        background: "#005DAA",
+        minHeight: "100vh",
+      }}
+    >
+      <h1>Presentation Mode</h1>
+    </div>
+  );
+}
+
   if (
     currentPage === "templateLibrary"
   ) {
