@@ -688,6 +688,7 @@ https://rotaryquestionnaires.pages.dev/join/{sessionCode}
 
       <button
   onClick={async () => {
+    alert("Start Session clicked");
     const response = await fetch(
       "/api/session/start",
       {
