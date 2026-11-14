@@ -748,7 +748,7 @@ setResponseCount(
 <button
   onClick={() => {
   alert(
-    "TEST"
+    "Presentation Mode works"
     );
   }}
   style={primaryButton}
