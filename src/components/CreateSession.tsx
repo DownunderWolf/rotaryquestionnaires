@@ -744,6 +744,17 @@ setResponseCount(
 >
   Review Session
 </button>
+
+<button
+  onClick={() => {
+    console.log(
+      "Presentation Mode"
+    );
+  }}
+  style={primaryButton}
+>
+  Presentation Mode
+</button>
         </div>
       </div>
     </div>
