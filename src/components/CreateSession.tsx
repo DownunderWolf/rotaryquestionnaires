@@ -732,6 +732,11 @@ setResponseCount(
   Start Session
 </button>
 
+const [presentationMode, setPresentationMode] =
+  useState(false);
+
+  const [activeQuestion, setActiveQuestion] =
+  useState(0);
 
          <button
   onClick={onReview}
