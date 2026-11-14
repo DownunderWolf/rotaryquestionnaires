@@ -29,16 +29,16 @@ export default function CreateSession({
   templateData,
 }: CreateSessionProps) {
   const [sessionName, setSessionName] = useState("");
-  const [sessionId, setSessionId] =
-  useState<number | null>(null);
-  const [sessionDescription, setSessionDescription] =
-    useState("");
-    const [sessionCode, setSessionCode] =
-  useState("");
-  const [responseCount, setResponseCount] =
+  const [sessionId, setSessionId] = useState<number | null>(null);
+  const [sessionDescription, setSessionDescription] = useState("");
+  const [sessionCode, setSessionCode] = useState("");
+  const [responseCount, setResponseCount] = useState(0);
+  const [results, setResults] = useState<any[]>([]);
+  const [presentationMode, setPresentationMode] =
+  useState(false);
+
+  const [activeQuestion, setActiveQuestion] =
   useState(0);
-  const [results, setResults] =
-  useState<any[]>([]);
    
   useEffect(() => {
   console.log("AUTO REFRESH STARTED");
@@ -732,11 +732,6 @@ setResponseCount(
   Start Session
 </button>
 
-const [presentationMode, setPresentationMode] =
-  useState(false);
-
-  const [activeQuestion, setActiveQuestion] =
-  useState(0);
 
          <button
   onClick={onReview}
