@@ -688,10 +688,8 @@ https://rotaryquestionnaires.pages.dev/join/{sessionCode}
 
       <button
   onClick={async () => {
-   
-
-    const response = await fetch(
-      "/api/session/start",
+       const response = await fetch(
+          "/api/session/start",
       
       {
         method: "POST",
