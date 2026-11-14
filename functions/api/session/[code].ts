@@ -22,6 +22,7 @@ export async function onRequestGet(
           s.id,
           s.session_code,
           s.template_id,
+          s.active_question,
           t.template_name
         FROM sessions s
         INNER JOIN templates t
@@ -78,6 +79,8 @@ const questionsWithOptions =
 return Response.json({
   success: true,
   session,
+  activeQuestion:
+     session?.active_question ?? 0,
   questions:
     questionsWithOptions,
 });  } catch (error) {
