@@ -79,7 +79,7 @@ if (currentPage === "joinSession") {
         style={{
           minHeight: "100dvh",
           backgroundColor: "#005DAA",
-          padding: "24px",
+          padding: "16px",
           boxSizing: "border-box",
         }}
       >
@@ -109,7 +109,7 @@ if (currentPage === "joinSession") {
     return (
       <div
         style={{
-          width: "100vw",
+          width: "100%",
           minHeight: "100dvh",
           backgroundColor: "#005DAA",
           padding: "16px",
@@ -209,7 +209,7 @@ if (currentPage === "joinSession") {
   return (
     <div
       style={{
-        width: "100vw",
+        width: "100%",
         minHeight: "100dvh",
         backgroundColor: "#005DAA",
         display: "flex",
