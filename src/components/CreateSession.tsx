@@ -34,7 +34,7 @@ export default function CreateSession({
   const [sessionCode, setSessionCode] = useState("");
   const [responseCount, setResponseCount] = useState(0);
   const [results, setResults] = useState<any[]>([]);
-const [presentationMode] =
+  const [presentationMode, setPresentationMode] =
   useState(false);
 
 const [activeQuestion] =
@@ -561,7 +561,7 @@ const updateQuestionField = (
           </div>
         )}
 
-{sessionCode && (
+{sessionCode && !presentationMode && (
   <div
     style={{
       backgroundColor: "#FFFFFF",
@@ -747,7 +747,7 @@ setResponseCount(
 
 <button
   onClick={() => {
-    alert("Presentation Mode works");
+    setPresentationMode(true);
   }}
   style={primaryButton}
 >
