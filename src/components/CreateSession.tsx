@@ -747,14 +747,15 @@ setResponseCount(
 
 <button
   onClick={() => {
-    console.log(
-      "Presentation Mode Coming Next"
+  alert(
+    "Presentation Mode Coming Next"
     );
   }}
   style={primaryButton}
 >
   Presentation Mode
 </button>
+
         </div>
       </div>
     </div>
