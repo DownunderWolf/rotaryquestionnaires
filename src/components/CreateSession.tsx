@@ -34,11 +34,7 @@ export default function CreateSession({
   const [sessionCode, setSessionCode] = useState("");
   const [responseCount, setResponseCount] = useState(0);
   const [results, setResults] = useState<any[]>([]);
-  const [presentationMode, setPresentationMode] =
-  useState(false);
 
-  const [activeQuestion, setActiveQuestion] =
-  useState(0);
    
   useEffect(() => {
   console.log("AUTO REFRESH STARTED");
