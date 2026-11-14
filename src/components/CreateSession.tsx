@@ -688,9 +688,11 @@ https://rotaryquestionnaires.pages.dev/join/{sessionCode}
 
       <button
   onClick={async () => {
-    alert("Start Session clicked");
+   
+
     const response = await fetch(
       "/api/session/start",
+      
       {
         method: "POST",
         headers: {
@@ -703,41 +705,38 @@ https://rotaryquestionnaires.pages.dev/join/{sessionCode}
           audienceName:
             sessionName,
         }),
+
       }
     );
+
 
     const result =
       await response.json();
 
-   setSessionCode(
-  result.sessionCode
-);
-setSessionId(
-  result.sessionId
-);
-const countResponse =
-  await fetch(
-    `/api/response/count?sessionId=${result.sessionId}`
-  );
-const countData =
-  await countResponse.json();
-
-setResponseCount(
-  countData.count
-);
-
-
-
-    console.log(
-      "START SESSION TEST"
+    setSessionCode(
+      result.sessionCode
     );
-    console.log(result);
+
+    setSessionId(
+      result.sessionId
+    );
+
+    const countResponse =
+      await fetch(
+        `/api/response/count?sessionId=${result.sessionId}`
+      );
+
+    const countData =
+      await countResponse.json();
+
+    setResponseCount(
+      countData.count
+    );
   }}
   style={primaryButton}
 >
   Start Session
 </button>
-
 
          <button
   onClick={onReview}
