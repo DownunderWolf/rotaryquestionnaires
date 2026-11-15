@@ -286,7 +286,9 @@ if (
   Submit Answer
 </button>
 
-<p
+
+      </div>
+      <p
   style={{
     marginTop: "30px",
     fontSize: "12px",
@@ -295,7 +297,6 @@ if (
 >
   © Complete Circle Consulting
 </p>
-      </div>
     </div>
   );
 }
