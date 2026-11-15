@@ -27,6 +27,8 @@ const [selectedAnswers, setSelectedAnswers] =
       const data =
   await response.json();
 
+  console.log(data);
+
     if (
   data.questions &&
   data.questions.length > 0
@@ -34,6 +36,8 @@ const [selectedAnswers, setSelectedAnswers] =
   setQuestion(
     data.questions[0]
   );
+
+console.log(data.session);
 
   setSessionId(
     data.session.id
@@ -68,10 +72,10 @@ const options =
           width: "100%",
         }}
       >
-        <h1>Workshop Response Hub</h1>
+        <h1>{session?.name}</h1>
 
         <p>
-          Connected to Session
+          Session
         </p>
 
         <h2>{sessionCode}</h2>
