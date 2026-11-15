@@ -27,7 +27,7 @@ const [selectedAnswers, setSelectedAnswers] =
       const data =
   await response.json();
 
-  console.log("SESSION DATA");
+  console.log("JOIN SESSION DATA");
 console.log(data);
 
     if (
