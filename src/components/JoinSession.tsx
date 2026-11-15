@@ -27,7 +27,8 @@ const [selectedAnswers, setSelectedAnswers] =
       const data =
   await response.json();
 
-  console.log(data);
+  console.log("SESSION DATA");
+console.log(data);
 
     if (
   data.questions &&
@@ -72,7 +73,7 @@ const options =
           width: "100%",
         }}
       >
-        <h1>{session?.name}</h1>
+        <h1>Workshop Session</h1>
 
         <p>
           Session
