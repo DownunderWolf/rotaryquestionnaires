@@ -61,6 +61,9 @@ export default function TemplateLibrary({
       setTemplates(
         data.templates || []
       );
+
+      console.log(data.templates);
+      
     } catch (err) {
       console.error(err);
 
