@@ -51,6 +51,9 @@ export default function TemplateLibrary({
       const data =
         await response.json();
 
+        console.log("TEMPLATE DATA");
+        console.log(data);
+
       if (!data.success) {
         throw new Error(
           data.error ||
@@ -63,7 +66,7 @@ export default function TemplateLibrary({
       );
 
       console.log(data.templates);
-      
+
     } catch (err) {
       console.error(err);
 
