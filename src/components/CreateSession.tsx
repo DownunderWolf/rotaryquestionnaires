@@ -740,7 +740,7 @@ https://rotaryquestionnaires.pages.dev/join/{sessionCode}
   onClick={onReview}
   style={primaryButton}
 >
-  Review Session
+  Preview Questions
 </button>
 
 <button
