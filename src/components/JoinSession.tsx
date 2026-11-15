@@ -72,7 +72,19 @@ const options =
           maxWidth: "500px",
           width: "100%",
         }}
+
+        
       >
+
+        <img
+  src="/images/RotaryClubLogo.svg"
+  alt="Rotary Club Logo"
+  style={{
+    width: "120px",
+    display: "block",
+    margin: "0 auto 20px auto",
+  }}
+/>
         <h1>Workshop Session</h1>
 
         <p>
@@ -273,6 +285,16 @@ if (
 >
   Submit Answer
 </button>
+
+<p
+  style={{
+    marginTop: "30px",
+    fontSize: "12px",
+    color: "#666666",
+  }}
+>
+  © Complete Circle Consulting
+</p>
       </div>
     </div>
   );
