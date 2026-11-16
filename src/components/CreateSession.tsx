@@ -744,6 +744,27 @@ https://rotaryquestionnaires.pages.dev/join/{sessionCode}
 </button>
 
 <button
+  onClick={async () => {
+    await fetch(
+      "/api/session/next-question",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type":
+            "application/json",
+        },
+        body: JSON.stringify({
+          sessionCode,
+        }),
+      }
+    );
+  }}
+  style={primaryButton}
+>
+  Next Question
+</button>
+
+<button
   onClick={() => {
     setPresentationMode(true);
   }}
