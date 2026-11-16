@@ -189,6 +189,7 @@ export default function JoinSession() {
           minHeight: "100vh",
           backgroundColor: "#005DAA",
           display: "flex",
+          flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           padding: "24px",
@@ -233,15 +234,7 @@ export default function JoinSession() {
           width: "100%",
         }}
       >
-        <img
-          src="/images/RotaryClubLogo.svg"
-          alt="Rotary Club Logo"
-          style={{
-            width: "120px",
-            display: "block",
-            margin: "0 auto 20px auto",
-          }}
-        />
+        
 
         <h1>Workshop Session</h1>
 
