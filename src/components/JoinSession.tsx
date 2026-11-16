@@ -17,6 +17,9 @@ export default function JoinSession() {
 const [selectedAnswers, setSelectedAnswers] =
   useState<string[]>([]);
 
+ const [waiting, setWaiting] =
+  useState(false); 
+
   useEffect(() => {
   async function loadQuestion() {
     const response =
@@ -48,6 +51,42 @@ console.log(data.session);
 
   loadQuestion();
 }, [sessionCode]);
+
+if (waiting) {
+  return (
+    <div
+      style={{
+        minHeight: "100vh",
+        backgroundColor: "#005DAA",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        padding: "24px",
+      }}
+    >
+      <div
+        style={{
+          backgroundColor: "#FFFFFF",
+          padding: "32px",
+          borderRadius: "12px",
+          textAlign: "center",
+          maxWidth: "500px",
+          width: "100%",
+        }}
+      >
+        <h1>Response Received</h1>
+
+        <p>
+          Please keep this page open.
+        </p>
+
+        <p>
+          Waiting for the next question...
+        </p>
+      </div>
+    </div>
+  );
+}
 
 const options =
   question?.options || [];
@@ -270,14 +309,11 @@ if (
       }
     );
 
-  await response.json();
+ await response.json();
+
+setWaiting(true);
 }
 
- 
-
-    alert(
-      "Response received. Please keep this page open. The facilitator will release the next question shortly."
-    );
   }}
   style={{
     marginTop: "20px",
