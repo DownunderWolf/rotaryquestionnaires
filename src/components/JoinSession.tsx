@@ -1,138 +1,211 @@
 import { useEffect, useState } from "react";
 
+type Question = {
+  id: number;
+  question_text: string;
+  question_type: string;
+  options?: string[];
+};
+
+type SessionResponse = {
+  session: {
+    id: number;
+  };
+  questions: Question[];
+  activeQuestion: number;
+};
+
 export default function JoinSession() {
-  const sessionCode =
-  window.location.pathname
-    .split("/")
-    .pop();
+  const sessionCode = window.location.pathname.split("/").pop() ?? "";
 
-    const [question, setQuestion] =
-  useState<any>(null);
-  const [sessionId, setSessionId] =
-  useState<number | null>(null);
-
-  const [selectedAnswer, setSelectedAnswer] =
-  useState("");
-
-const [selectedAnswers, setSelectedAnswers] =
-  useState<string[]>([]);
-
- const [waiting, setWaiting] =
-  useState(false); 
+  const [question, setQuestion] = useState<Question | null>(null);
+  const [sessionId, setSessionId] = useState<number | null>(null);
+  const [selectedAnswer, setSelectedAnswer] = useState("");
+  const [selectedAnswers, setSelectedAnswers] = useState<string[]>([]);
+  const [waiting, setWaiting] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
+  const [totalQuestions, setTotalQuestions] = useState(0);
+  const [activeQuestionIndex, setActiveQuestionIndex] = useState(0);
 
   useEffect(() => {
-  async function loadQuestion() {
-    const response =
-      await fetch(
-        `/api/session/${sessionCode}`
-      );
+    async function loadQuestion() {
+      try {
+        const response = await fetch(`/api/session/${sessionCode}`);
+        const data: SessionResponse = await response.json();
 
-      const data =
-  await response.json();
+        setSessionId(data.session?.id ?? null);
+        setTotalQuestions(data.questions?.length ?? 0);
+        setActiveQuestionIndex(data.activeQuestion ?? 0);
 
-  console.log("JOIN SESSION DATA");
-console.log(data);
+        if (
+          data.questions &&
+          data.questions.length > 0 &&
+          data.activeQuestion >= 0
+        ) {
+          setQuestion(data.questions[data.activeQuestion]);
+        }
+      } catch (error) {
+        console.error("Failed to load session:", error);
+      }
+    }
 
-    if (
-  data.questions &&
-  data.questions.length > 0
-) {
-  setQuestion(
-  data.questions[data.activeQuestion]
-);
+    loadQuestion();
+  }, [sessionCode]);
 
-console.log(data.session);
+  useEffect(() => {
+    if (!waiting || isComplete) {
+      return;
+    }
 
-  setSessionId(
-    data.session.id
-  );
-}
-  }
+    const interval = setInterval(async () => {
+      try {
+        const response = await fetch(`/api/session/${sessionCode}`);
+        const data: SessionResponse = await response.json();
 
-  loadQuestion();
-}, [sessionCode]);
+        const nextQuestion = data.questions?.[data.activeQuestion];
 
-useEffect(() => {
-  if (!waiting) {
-    return;
-  }
+        if (nextQuestion && nextQuestion.id !== question?.id) {
+          setQuestion(nextQuestion);
+          setActiveQuestionIndex(data.activeQuestion);
+          setTotalQuestions(data.questions?.length ?? 0);
 
-  const interval =
-    setInterval(async () => {
-      const response =
-        await fetch(
-          `/api/session/${sessionCode}`
-        );
-
-      const data =
-        await response.json();
-
-      const nextQuestion =
-        data.questions[
-          data.activeQuestion
-        ];
-
-      if (
-        nextQuestion &&
-        nextQuestion.id !== question?.id
-      ) {
-        setQuestion(
-          nextQuestion
-        );
-
-        setSelectedAnswer("");
-        setSelectedAnswers([]);
-        setWaiting(false);
+          setSelectedAnswer("");
+          setSelectedAnswers([]);
+          setWaiting(false);
+        }
+      } catch (error) {
+        console.error("Failed to refresh session:", error);
       }
     }, 3000);
 
-  return () =>
-    clearInterval(interval);
-}, [
-  waiting,
-  sessionCode,
-  question,
-]);
+    return () => clearInterval(interval);
+  }, [waiting, isComplete, sessionCode, question]);
 
+  const options = question?.options ?? [];
 
-if (waiting) {
-  return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#005DAA",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "24px",
-      }}
-    >
+  const isFinalQuestion =
+    totalQuestions > 0 &&
+    activeQuestionIndex === totalQuestions - 1;
+
+  async function submitResponse() {
+    if (!question || !sessionId) {
+      return;
+    }
+
+    try {
+      if (question.question_type === "Word Cloud") {
+        const entries = selectedAnswer
+          .split("\n")
+          .map((item) => item.trim())
+          .filter((item) => item.length > 0);
+
+        for (const entry of entries) {
+          await fetch("/api/response/save", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              sessionId,
+              questionId: question.id,
+              responseText: entry,
+            }),
+          });
+        }
+      } else {
+        await fetch("/api/response/save", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            sessionId,
+            questionId: question.id,
+            responseText:
+              question.question_type === "Combination Choice"
+                ? selectedAnswers.join(" + ")
+                : selectedAnswer,
+          }),
+        });
+      }
+
+      if (isFinalQuestion) {
+        setIsComplete(true);
+      } else {
+        setWaiting(true);
+      }
+    } catch (error) {
+      console.error("Failed to save response:", error);
+    }
+  }
+
+  if (isComplete) {
+    return (
       <div
         style={{
-          backgroundColor: "#FFFFFF",
-          padding: "32px",
-          borderRadius: "12px",
-          textAlign: "center",
-          maxWidth: "500px",
-          width: "100%",
+          minHeight: "100vh",
+          backgroundColor: "#005DAA",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "24px",
         }}
       >
-        <h1>Response Received</h1>
-
-        <p>
-          Please keep this page open.
-        </p>
-
-        <p>
-          Waiting for the next question...
-        </p>
+        <div
+          style={{
+            backgroundColor: "#FFFFFF",
+            padding: "32px",
+            borderRadius: "12px",
+            textAlign: "center",
+            maxWidth: "500px",
+            width: "100%",
+          }}
+        >
+          <img
+            src="/images/RotaryClubLogo.svg"
+            alt="Rotary Club Logo"
+            style={{
+              width: "120px",
+              display: "block",
+              margin: "0 auto 20px auto",
+            }}
+          />
+          <h1>Thank You</h1>
+          <p>Your responses have been recorded.</p>
+        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-const options =
-  question?.options || [];
+  if (waiting) {
+    return (
+      <div
+        style={{
+          minHeight: "100vh",
+          backgroundColor: "#005DAA",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          padding: "24px",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "#FFFFFF",
+            padding: "32px",
+            borderRadius: "12px",
+            textAlign: "center",
+            maxWidth: "500px",
+            width: "100%",
+          }}
+        >
+          <h1>Response Received</h1>
+          <p>Please keep this page open.</p>
+          <p>Waiting for the next question...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div
@@ -154,220 +227,115 @@ const options =
           maxWidth: "500px",
           width: "100%",
         }}
-
-        
       >
-
         <img
-  src="/images/RotaryClubLogo.svg"
-  alt="Rotary Club Logo"
-  style={{
-    width: "120px",
-    display: "block",
-    margin: "0 auto 20px auto",
-  }}
-/>
+          src="/images/RotaryClubLogo.svg"
+          alt="Rotary Club Logo"
+          style={{
+            width: "120px",
+            display: "block",
+            margin: "0 auto 20px auto",
+          }}
+        />
+
         <h1>Workshop Session</h1>
 
-        <p>
-          Session
-        </p>
-
+        <p>Session</p>
         <h2>{sessionCode}</h2>
 
-    <h3>
-  {question?.question_text ||
-    "Loading question..."}
-</h3>
-<div
-  style={{
-    textAlign: "left",
-    marginTop: "20px",
-  }}
->
-  <div
-  style={{
-    textAlign: "left",
-    marginTop: "20px",
-  }}
->
- {question?.question_type === "Free Text" ? (
-    <textarea
-      placeholder="Enter your response"
-      value={selectedAnswer}
-      onChange={(e) =>
-        setSelectedAnswer(e.target.value)
-      }
-      style={{
-        width: "100%",
-        minHeight: "120px",
-        padding: "12px",
-        borderRadius: "8px",
-        border: "1px solid #D9D9D6",
-        boxSizing: "border-box",
-      }}
-    />
-) : question?.question_type === "Word Cloud" ? (
-    <textarea
-      placeholder={`Enter one word or phrase per line
+        <h3>{question?.question_text ?? "Loading question..."}</h3>
+
+        <div
+          style={{
+            textAlign: "left",
+            marginTop: "20px",
+          }}
+        >
+          {question?.question_type === "Free Text" ? (
+            <textarea
+              placeholder="Enter your response"
+              value={selectedAnswer}
+              onChange={(e) => setSelectedAnswer(e.target.value)}
+              style={{
+                width: "100%",
+                minHeight: "120px",
+                padding: "12px",
+                borderRadius: "8px",
+                border: "1px solid #D9D9D6",
+                boxSizing: "border-box",
+              }}
+            />
+          ) : question?.question_type === "Word Cloud" ? (
+            <textarea
+              placeholder={`Enter one word or phrase per line
 
 Example:
 Service
 Community
 Friendship`}
-      value={selectedAnswer}
-      onChange={(e) =>
-        setSelectedAnswer(e.target.value)
-      }
-      style={{
-        width: "100%",
-        minHeight: "120px",
-        padding: "12px",
-        borderRadius: "8px",
-        border: "1px solid #D9D9D6",
-        boxSizing: "border-box",
-      }}
-    />
-    
-    
-  ) : (
-    question?.question_type ===
-"Combination Choice" ? (
-  options.map(
-    (option: string, index: number) => (
-      <div key={index}>
-        <label>
-          <input
-            type="checkbox"
-            checked={selectedAnswers.includes(
-              option
-            )}
-            onChange={(e) => {
-              if (e.target.checked) {
-                setSelectedAnswers([
-                  ...selectedAnswers,
-                  option,
-                ]);
-              } else {
-                setSelectedAnswers(
-                  selectedAnswers.filter(
-                    (item) =>
-                      item !== option
-                  )
-                );
-              }
-            }}
-          />
-          {" "}
-          {option}
-        </label>
-        <br />
-        <br />
+              value={selectedAnswer}
+              onChange={(e) => setSelectedAnswer(e.target.value)}
+              style={{
+                width: "100%",
+                minHeight: "120px",
+                padding: "12px",
+                borderRadius: "8px",
+                border: "1px solid #D9D9D6",
+                boxSizing: "border-box",
+              }}
+            />
+          ) : question?.question_type === "Combination Choice" ? (
+            options.map((option, index) => (
+              <div key={index}>
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={selectedAnswers.includes(option)}
+                    onChange={(e) => {
+                      if (e.target.checked) {
+                        setSelectedAnswers((prev) => [...prev, option]);
+                      } else {
+                        setSelectedAnswers((prev) =>
+                          prev.filter((item) => item !== option)
+                        );
+                      }
+                    }}
+                  />{" "}
+                  {option}
+                </label>
+                <br />
+                <br />
+              </div>
+            ))
+          ) : (
+            options.map((option, index) => (
+              <div key={index}>
+                <label>
+                  <input
+                    type="radio"
+                    name="question"
+                    value={option}
+                    checked={selectedAnswer === option}
+                    onChange={() => setSelectedAnswer(option)}
+                  />{" "}
+                  {option}
+                </label>
+                <br />
+                <br />
+              </div>
+            ))
+          )}
+        </div>
+
+        <button
+          onClick={submitResponse}
+          style={{
+            marginTop: "20px",
+          }}
+        >
+          Submit Answer
+        </button>
       </div>
-    )
-  )
-) : (
-  options.map(
-    (option: string, index: number) => (
-      <div key={index}>
-        <label>
-          <input
-            type="radio"
-            name="question1"
-            value={option}
-            checked={
-              selectedAnswer === option
-            }
-            onChange={() =>
-              setSelectedAnswer(option)
-            }
-          />
-          {" "}
-          {option}
-        </label>
-        <br />
-        <br />
-      </div>
-    )
-  )
-)
-  )}
-</div>
-
-</div>
-
-<button
-  onClick={async () => {
-if (
-  question?.question_type ===
-  "Word Cloud"
-) {
-  const entries =
-    selectedAnswer
-      .split("\n")
-      .map((item) =>
-        item.trim()
-      )
-      .filter(
-        (item) =>
-          item.length > 0
-      );
-
-  for (const entry of entries) {
-    await fetch(
-      "/api/response/save",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          sessionId,
-          questionId: 1,
-          responseText: entry,
-        }),
-      }
-    );
-  }
-} else {
-  const response =
-    await fetch(
-      "/api/response/save",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type":
-            "application/json",
-        },
-        body: JSON.stringify({
-          sessionId,
-          questionId: 1,
-          responseText:
-            question?.question_type ===
-            "Combination Choice"
-              ? selectedAnswers.join(" + ")
-              : selectedAnswer,
-        }),
-      }
-    );
-
- await response.json();
-
-setWaiting(true);
-}
-
-  }}
-  style={{
-    marginTop: "20px",
-  }}
->
-  Submit Answer
-</button>
-
-
-      </div>
-
     </div>
   );
 }
