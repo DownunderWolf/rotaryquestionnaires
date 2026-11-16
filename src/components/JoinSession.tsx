@@ -15,6 +15,51 @@ type SessionResponse = {
   activeQuestion: number;
 };
 
+const pageStyle = {
+  minHeight: "100vh",
+  backgroundColor: "#005DAA",
+  display: "flex",
+  flexDirection: "column" as const,
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "24px",
+};
+
+const cardStyle = {
+  backgroundColor: "#FFFFFF",
+  padding: "32px",
+  borderRadius: "12px",
+  textAlign: "center" as const,
+  maxWidth: "500px",
+  width: "100%",
+};
+
+const logo = (
+  <img
+    src="/images/RotaryClubLogo.svg"
+    alt="Rotary Club Logo"
+    style={{
+      width: "140px",
+      display: "block",
+      marginBottom: "20px",
+    }}
+  />
+);
+
+const footer = (
+  <p
+    style={{
+      color: "#FFFFFF",
+      marginTop: "16px",
+      fontSize: "12px",
+      textAlign: "center",
+      opacity: 0.9,
+    }}
+  >
+    © Complete Circle Consulting
+  </p>
+);
+
 export default function JoinSession() {
   const sessionCode = window.location.pathname.split("/").pop() ?? "";
 
@@ -141,104 +186,44 @@ export default function JoinSession() {
 
   if (isComplete) {
     return (
-      <div
-       style={{
-  minHeight: "100vh",
-  backgroundColor: "#005DAA",
-  display: "flex",
-  flexDirection: "column",
-  justifyContent: "center",
-  alignItems: "center",
-  padding: "24px",
-}}
->
-<img
-  src="/images/RotaryClubLogo.svg"
-  alt="Rotary Club Logo"
-  style={{
-    width: "140px",
-    display: "block",
-    marginBottom: "20px",
-  }}
-/>
+      <div style={pageStyle}>
+        {logo}
 
-
-      
-        <div
-          style={{
-            backgroundColor: "#FFFFFF",
-            padding: "32px",
-            borderRadius: "12px",
-            textAlign: "center",
-            maxWidth: "500px",
-            width: "100%",
-          }}
-        >
-        
+        <div style={cardStyle}>
           <h1>Thank You</h1>
           <p>Your responses have been recorded.</p>
         </div>
+
+        {footer}
       </div>
     );
   }
 
   if (waiting) {
     return (
-      <div
-        style={{
-          minHeight: "100vh",
-          backgroundColor: "#005DAA",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "24px",
-        }}
-      >
-        <div
-          style={{
-            backgroundColor: "#FFFFFF",
-            padding: "32px",
-            borderRadius: "12px",
-            textAlign: "center",
-            maxWidth: "500px",
-            width: "100%",
-          }}
-        >
+      <div style={pageStyle}>
+        {logo}
+
+        <div style={cardStyle}>
           <h1>Response Received</h1>
           <p>Please keep this page open.</p>
           <p>Waiting for the next question...</p>
         </div>
+
+        {footer}
       </div>
     );
   }
 
   return (
-    <div
-      style={{
-        minHeight: "100vh",
-        backgroundColor: "#005DAA",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        padding: "24px",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "#FFFFFF",
-          padding: "32px",
-          borderRadius: "12px",
-          textAlign: "center",
-          maxWidth: "500px",
-          width: "100%",
-        }}
-      >
-        
+    <div style={pageStyle}>
+      {logo}
 
+      <div style={cardStyle}>
         <h1>Workshop Session</h1>
 
         <p>Session</p>
+
         <h2>{sessionCode}</h2>
 
         <h3>{question?.question_text ?? "Loading question..."}</h3>
@@ -334,6 +319,8 @@ Friendship`}
           Submit Answer
         </button>
       </div>
+
+      {footer}
     </div>
   );
 }
