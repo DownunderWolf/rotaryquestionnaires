@@ -35,8 +35,8 @@ console.log(data);
   data.questions.length > 0
 ) {
   setQuestion(
-    data.questions[0]
-  );
+  data.questions[data.activeQuestion]
+);
 
 console.log(data.session);
 
@@ -288,15 +288,7 @@ if (
 
 
       </div>
-      <p
-  style={{
-    marginTop: "30px",
-    fontSize: "12px",
-    color: "#666666",
-  }}
->
-  © Complete Circle Consulting
-</p>
+
     </div>
   );
 }
