@@ -2,15 +2,17 @@ import { useState } from "react";
 
 export default function PresentationMode() {
   const [activeItem, setActiveItem] =
-    useState("Question 1");
+  useState("Join Participants");
 
-  const questions = [
-    "Question 1",
-    "Question 2",
-    "Question 3",
-    "Question 4",
-    "Question 5",
-  ];
+ const questions = [
+  "Join Participants",
+  "Question 1",
+  "Question 2",
+  "Question 3",
+  "Question 4",
+  "Question 5",
+];
+
 
   if (activeItem === "Thank Participants") {
     return (
