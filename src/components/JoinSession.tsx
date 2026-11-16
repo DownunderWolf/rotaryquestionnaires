@@ -52,6 +52,49 @@ console.log(data.session);
   loadQuestion();
 }, [sessionCode]);
 
+useEffect(() => {
+  if (!waiting) {
+    return;
+  }
+
+  const interval =
+    setInterval(async () => {
+      const response =
+        await fetch(
+          `/api/session/${sessionCode}`
+        );
+
+      const data =
+        await response.json();
+
+      const nextQuestion =
+        data.questions[
+          data.activeQuestion
+        ];
+
+      if (
+        nextQuestion &&
+        nextQuestion.id !== question?.id
+      ) {
+        setQuestion(
+          nextQuestion
+        );
+
+        setSelectedAnswer("");
+        setSelectedAnswers([]);
+        setWaiting(false);
+      }
+    }, 3000);
+
+  return () =>
+    clearInterval(interval);
+}, [
+  waiting,
+  sessionCode,
+  question,
+]);
+
+
 if (waiting) {
   return (
     <div
