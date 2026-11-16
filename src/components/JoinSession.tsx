@@ -328,8 +328,17 @@ Friendship`}
         <button
           onClick={submitResponse}
           style={{
-            marginTop: "20px",
-          }}
+  marginTop: "20px",
+  backgroundColor: "#005DAA",
+  color: "#FFFFFF",
+  border: "none",
+  borderRadius: "8px",
+  padding: "14px 32px",
+  fontSize: "18px",
+  fontWeight: 600,
+  cursor: "pointer",
+  minWidth: "220px",
+}}
         >
           Submit Answer
         </button>
