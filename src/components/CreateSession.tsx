@@ -34,7 +34,7 @@ export default function CreateSession({
   const [sessionCode, setSessionCode] = useState("");
   const [responseCount, setResponseCount] = useState(0);
   const [results, setResults] = useState<any[]>([]);
-  const [presentationMode, setPresentationMode] =
+  const [presentationMode] =
   useState(false);
 
 const [activeQuestion] =
@@ -48,10 +48,10 @@ console.log(
   useEffect(() => {
   console.log("AUTO REFRESH STARTED");
 
-  const interval = setInterval(() => {
-    console.log("AUTO REFRESH TICK");
-    loadResults();
-  }, 5000);
+const interval = setInterval(() => {
+  console.log("AUTO REFRESH TICK");
+  loadResults();
+}, 5000);
 
   return () =>
     clearInterval(interval);
@@ -766,7 +766,15 @@ https://rotaryquestionnaires.pages.dev/join/{sessionCode}
 
 <button
   onClick={() => {
-    setPresentationMode(true);
+    if (!sessionCode) {
+      alert(
+        "Please start a session first."
+      );
+      return;
+    }
+
+    window.location.href =
+      `/presentation/${sessionCode}`;
   }}
   style={primaryButton}
 >
