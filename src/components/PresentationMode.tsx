@@ -1,4 +1,5 @@
 import { useState } from "react";
+import QRCode from "react-qr-code";
 
 interface PresentationModeProps {
   sessionCode?: string;
@@ -205,21 +206,19 @@ export default function PresentationMode({
   Join This Session
 </h1>
 
-              <div
-                style={{
-                  width: "250px",
-                  height: "250px",
-                  backgroundColor: "#FFFFFF",
-                  borderRadius: "12px",
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                  color: "#005DAA",
-                  fontWeight: "bold",
-                  margin: "20px 0",
-                }}
-              >
-                QR CODE
+             <div
+  style={{
+    backgroundColor: "#FFFFFF",
+    padding: "15px",
+    borderRadius: "12px",
+    margin: "20px 0",
+  }}
+>
+                <QRCode
+  value={`https://rotaryquestionnaires.pages.dev/join/${sessionCode}`}
+  size={220}
+/>
+
               </div>
 
 <h2
