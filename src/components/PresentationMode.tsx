@@ -1,6 +1,13 @@
 import { useState } from "react";
 
-export default function PresentationMode() {
+interface PresentationModeProps {
+  sessionCode?: string;
+}
+
+export default function PresentationMode({
+  sessionCode,
+}: PresentationModeProps) {
+
   const [activeItem, setActiveItem] =
     useState("Join Participants");
 
@@ -215,15 +222,15 @@ export default function PresentationMode() {
                 QR CODE
               </div>
 
-              <h2
+<h2
   style={{
     color: "#FFFFFF",
   }}
 >
-  Session Code: DEMO123
+  Session Code: {sessionCode}
 </h2>
 
-              <h3
+<h3
   style={{
     color: "#FFFFFF",
   }}

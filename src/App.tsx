@@ -77,7 +77,16 @@ if (
     "/presentation/"
   )
 ) {
-  return <PresentationMode />;
+  const sessionCode =
+  window.location.pathname
+    .split("/")
+    .pop();
+
+return (
+  <PresentationMode
+    sessionCode={sessionCode}
+  />
+);
 }
 
   if (
