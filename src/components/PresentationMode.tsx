@@ -189,7 +189,14 @@ export default function PresentationMode() {
                 color: "#FFFFFF",
               }}
             >
-              <h1>Join This Session</h1>
+             <h1
+  style={{
+    color: "#FFFFFF",
+    marginBottom: "20px",
+  }}
+>
+  Join This Session
+</h1>
 
               <div
                 style={{
