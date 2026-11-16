@@ -142,15 +142,28 @@ export default function JoinSession() {
   if (isComplete) {
     return (
       <div
-        style={{
-          minHeight: "100vh",
-          backgroundColor: "#005DAA",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "24px",
-        }}
-      >
+       style={{
+  minHeight: "100vh",
+  backgroundColor: "#005DAA",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "center",
+  padding: "24px",
+}}
+>
+<img
+  src="/images/RotaryClubLogo.svg"
+  alt="Rotary Club Logo"
+  style={{
+    width: "140px",
+    display: "block",
+    marginBottom: "20px",
+  }}
+/>
+
+
+      
         <div
           style={{
             backgroundColor: "#FFFFFF",
@@ -161,15 +174,7 @@ export default function JoinSession() {
             width: "100%",
           }}
         >
-          <img
-            src="/images/RotaryClubLogo.svg"
-            alt="Rotary Club Logo"
-            style={{
-              width: "120px",
-              display: "block",
-              margin: "0 auto 20px auto",
-            }}
-          />
+        
           <h1>Thank You</h1>
           <p>Your responses have been recorded.</p>
         </div>
