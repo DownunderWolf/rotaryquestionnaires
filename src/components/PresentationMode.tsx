@@ -215,13 +215,22 @@ export default function PresentationMode() {
                 QR CODE
               </div>
 
-              <h2>
-                Session Code: DEMO123
-              </h2>
+              <h2
+  style={{
+    color: "#FFFFFF",
+  }}
+>
+  Session Code: DEMO123
+</h2>
 
-              <h3>
-                Participants Joined: 0
-              </h3>
+              <h3
+  style={{
+    color: "#FFFFFF",
+  }}
+>
+  Participants Joined: 0
+</h3>
+
             </div>
           ) : (
             <>
