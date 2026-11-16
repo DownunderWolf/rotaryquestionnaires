@@ -2,17 +2,16 @@ import { useState } from "react";
 
 export default function PresentationMode() {
   const [activeItem, setActiveItem] =
-  useState("Join Participants");
+    useState("Join Participants");
 
- const questions = [
-  "Join Participants",
-  "Question 1",
-  "Question 2",
-  "Question 3",
-  "Question 4",
-  "Question 5",
-];
-
+  const questions = [
+    "Join Participants",
+    "Question 1",
+    "Question 2",
+    "Question 3",
+    "Question 4",
+    "Question 5",
+  ];
 
   if (activeItem === "Thank Participants") {
     return (
@@ -174,74 +173,127 @@ export default function PresentationMode() {
             gap: "16px",
           }}
         >
-          <div
-            style={{
-              backgroundColor: "#0C6DB7",
-              borderRadius: "12px",
-              padding: "20px",
-            }}
-          >
-            <h2
+          {activeItem ===
+          "Join Participants" ? (
+            <div
               style={{
-                color: "#FFFFFF",
-                marginTop: 0,
-              }}
-            >
-              {activeItem}
-            </h2>
-
-            <p
-              style={{
+                flex: 1,
+                backgroundColor: "#0C6DB7",
+                borderRadius: "12px",
+                padding: "40px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                textAlign: "center",
                 color: "#FFFFFF",
               }}
             >
-              Placeholder question text
-            </p>
-          </div>
+              <h1>Join This Session</h1>
 
-          <div
-            style={{
-              flex: 1,
-              backgroundColor: "#0C6DB7",
-              borderRadius: "12px",
-              padding: "20px",
-              overflowY: "auto",
-              color: "#FFFFFF",
-            }}
-          >
-            <h3>
-              Participants Joined: 12
-            </h3>
+              <div
+                style={{
+                  width: "250px",
+                  height: "250px",
+                  backgroundColor: "#FFFFFF",
+                  borderRadius: "12px",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "#005DAA",
+                  fontWeight: "bold",
+                  margin: "20px 0",
+                }}
+              >
+                QR CODE
+              </div>
 
-            <h3>
-              Responses Received: 9
-            </h3>
+              <h2>
+                Session Code: DEMO123
+              </h2>
 
-            <hr />
+              <h3>
+                Participants Joined: 0
+              </h3>
+            </div>
+          ) : (
+            <>
+              <div
+                style={{
+                  backgroundColor:
+                    "#0C6DB7",
+                  borderRadius: "12px",
+                  padding: "20px",
+                }}
+              >
+                <h2
+                  style={{
+                    color: "#FFFFFF",
+                    marginTop: 0,
+                  }}
+                >
+                  {activeItem}
+                </h2>
 
-            <p>Response 1</p>
-            <p>Response 2</p>
-            <p>Response 3</p>
-            <p>Response 4</p>
-            <p>Response 5</p>
-          </div>
+                <p
+                  style={{
+                    color: "#FFFFFF",
+                  }}
+                >
+                  Placeholder question
+                  text
+                </p>
+              </div>
 
-          <div
-            style={{
-              height: "250px",
-              backgroundColor: "#0C6DB7",
-              borderRadius: "12px",
-              padding: "20px",
-              color: "#FFFFFF",
-            }}
-          >
-            <h3>Visualisation</h3>
+              <div
+                style={{
+                  flex: 1,
+                  backgroundColor:
+                    "#0C6DB7",
+                  borderRadius: "12px",
+                  padding: "20px",
+                  overflowY: "auto",
+                  color: "#FFFFFF",
+                }}
+              >
+                <h3>
+                  Participants Joined:
+                  12
+                </h3>
 
-            <p>
-              Chart / Word Cloud
-              placeholder
-            </p>
-          </div>
+                <h3>
+                  Responses Received:
+                  9
+                </h3>
+
+                <hr />
+
+                <p>Response 1</p>
+                <p>Response 2</p>
+                <p>Response 3</p>
+                <p>Response 4</p>
+                <p>Response 5</p>
+              </div>
+
+              <div
+                style={{
+                  height: "250px",
+                  backgroundColor:
+                    "#0C6DB7",
+                  borderRadius: "12px",
+                  padding: "20px",
+                  color: "#FFFFFF",
+                }}
+              >
+                <h3>Visualisation</h3>
+
+                <p>
+                  Chart / Word Cloud
+                  placeholder
+                </p>
+              </div>
+            </>
+          )}
         </div>
       </div>
 
