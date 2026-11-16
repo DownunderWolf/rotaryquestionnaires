@@ -220,11 +220,26 @@ export default function JoinSession() {
       {logo}
 
       <div style={cardStyle}>
-        <h1>Workshop Session</h1>
+        <h1
+  style={{
+    color: "#005DAA",
+    fontWeight: 700,
+  }}
+>
+  Workshop Session
+</h1>
+
 
         <p>Session</p>
 
-        <h2>{sessionCode}</h2>
+        <h2
+  style={{
+    color: "#005DAA",
+    fontWeight: 700,
+  }}
+>
+  {sessionCode}
+</h2>
 
         <h3>{question?.question_text ?? "Loading question..."}</h3>
 
