@@ -4,6 +4,7 @@ import CreateSession from "./components/CreateSession";
 import TemplateLibrary from "./components/TemplateLibrary";
 import JoinSession from "./components/JoinSession";
 import Questionnaire from "./components/Questionnaire";
+import PresentationMode from "./components/PresentationMode";
 
 
 function App() {
@@ -76,18 +77,7 @@ if (
     "/presentation/"
   )
 ) {
-  return (
-    <div
-      style={{
-        padding: "40px",
-        color: "white",
-        background: "#005DAA",
-        minHeight: "100vh",
-      }}
-    >
-      <h1>Presentation Mode</h1>
-    </div>
-  );
+  return <PresentationMode />;
 }
 
   if (
