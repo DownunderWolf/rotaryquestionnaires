@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
 
 interface PresentationModeProps {
@@ -11,6 +11,38 @@ export default function PresentationMode({
 
   const [activeItem, setActiveItem] =
     useState("Join Participants");
+
+    const [participantCount, setParticipantCount] =
+  useState(0);
+
+  useEffect(() => {
+  if (!sessionCode) {
+    return;
+  }
+
+  async function loadSession() {
+    const response = await fetch(
+      `/api/session/${sessionCode}`
+    );
+
+    const data =
+      await response.json();
+
+    setParticipantCount(
+      data.participantCount ?? 0
+    );
+  }
+
+  loadSession();
+
+  const interval = setInterval(
+    loadSession,
+    3000
+  );
+
+  return () =>
+    clearInterval(interval);
+}, [sessionCode]);
 
   const questions = [
     "Join Participants",
@@ -234,7 +266,7 @@ export default function PresentationMode({
     color: "#FFFFFF",
   }}
 >
-  Participants Joined: 0
+  Participants Joined: {participantCount}
 </h3>
 
             </div>
