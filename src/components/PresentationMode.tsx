@@ -357,7 +357,7 @@ if (activeQuestion) {
   }
 </h3>
 
-                <hr />
+               
 
                 {results.map((result, index) => (
   <p key={index}>
