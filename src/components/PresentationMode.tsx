@@ -362,15 +362,15 @@ if (activeQuestion) {
                
 
   {results.map((result, index) => (
-  <div
-    key={index}
-    style={{
-      display: "flex",
-      justifyContent: "space-between",
-      marginBottom: "10px",
-      fontSize: "18px",
-    }}
-  >
+ <div
+  key={index}
+  style={{
+    display: "flex",
+    gap: "12px",
+    marginBottom: "10px",
+    fontSize: "18px",
+  }}
+>
     <span>{result.response_text}</span>
     <strong>{result.total}</strong>
   </div>
