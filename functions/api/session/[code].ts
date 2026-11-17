@@ -76,6 +76,15 @@ const questionsWithOptions =
     )
   );
 
+const participantResult =
+  await context.env.DB.prepare(`
+    SELECT COUNT(*) as count
+    FROM session_participants
+    WHERE session_id = ?
+  `)
+    .bind(session?.id)
+    .first();
+
 return Response.json({
   success: true,
   session,
@@ -83,7 +92,10 @@ return Response.json({
      session?.active_question ?? 0,
   questions:
     questionsWithOptions,
-});  } catch (error) {
+  participantCount:
+    participantResult?.count ?? 0,  
+
+} catch (error) {
     return Response.json(
       {
         success: false,
