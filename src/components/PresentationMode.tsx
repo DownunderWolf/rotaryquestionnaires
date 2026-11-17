@@ -18,9 +18,6 @@ export default function PresentationMode({
   const [questionText, setQuestionText] =
   useState("");
 
-const [questionId, setQuestionId] =
-  useState<number | null>(null);
-
 
   useEffect(() => {
   if (!sessionCode) {
@@ -48,9 +45,6 @@ if (activeQuestion) {
     activeQuestion.question_text
   );
 
-  setQuestionId(
-    activeQuestion.id
-  );
 
 }
 
@@ -315,14 +309,8 @@ if (activeQuestion) {
                 <p
   style={{
     color: "#FFFFFF",
-  }}
->
-  Question ID: {questionId}
-</p>
-
-               <p
-  style={{
-    color: "#FFFFFF",
+    fontSize: "20px",
+    fontWeight: 600,
   }}
 >
   {questionText}
