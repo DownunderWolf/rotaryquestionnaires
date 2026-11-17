@@ -78,9 +78,27 @@ export default function JoinSession() {
         const response = await fetch(`/api/session/${sessionCode}`);
         const data: SessionResponse = await response.json();
 
-        setSessionId(data.session?.id ?? null);
-        setTotalQuestions(data.questions?.length ?? 0);
-        setActiveQuestionIndex(data.activeQuestion ?? 0);
+       setSessionId(data.session?.id ?? null);
+
+if (data.session?.id) {
+  fetch("/api/participant/join", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      sessionId: data.session.id,
+    }),
+  });
+}
+
+setTotalQuestions(
+  data.questions?.length ?? 0
+);
+
+setActiveQuestionIndex(
+  data.activeQuestion ?? 0
+);
 
         if (
           data.questions &&
