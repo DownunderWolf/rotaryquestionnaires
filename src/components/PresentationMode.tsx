@@ -18,6 +18,11 @@ export default function PresentationMode({
   const [questionText, setQuestionText] =
   useState("");
 
+  const [results, setResults] =
+  useState<any[]>([]);
+
+  //const [results, setResults] = useState<any[]>([]);
+
 
   useEffect(() => {
   if (!sessionCode) {
@@ -45,7 +50,17 @@ if (activeQuestion) {
     activeQuestion.question_text
   );
 
+  const resultsResponse =
+    await fetch(
+      `/api/response/results?sessionId=${data.session.id}&questionId=${activeQuestion.id}`
+    );
 
+  const resultsData =
+    await resultsResponse.json();
+
+  setResults(
+    resultsData.results || []
+  );
 }
 
   }
@@ -340,11 +355,11 @@ if (activeQuestion) {
 
                 <hr />
 
-                <p>Response 1</p>
-                <p>Response 2</p>
-                <p>Response 3</p>
-                <p>Response 4</p>
-                <p>Response 5</p>
+                {results.map((result, index) => (
+  <p key={index}>
+    {result.response_text}: {result.total}
+  </p>
+))}
               </div>
 
               <div
