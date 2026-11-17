@@ -93,7 +93,8 @@ return Response.json({
   questions:
     questionsWithOptions,
   participantCount:
-    participantResult?.count ?? 0,  
+    participantResult?.count ?? 0, 
+  }); 
 
 } catch (error) {
     return Response.json(
