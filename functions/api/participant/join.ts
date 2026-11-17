@@ -2,12 +2,12 @@ export interface Env {
   DB: D1Database;
 }
 
-export async function onRequest(
-  context: {
-    request: Request;
-    env: Env;
-  }
-) {
+export async function onRequest() {
+  return Response.json({
+    success: true,
+    message: "JOIN ENDPOINT REACHED"
+  });
+}
   try {
     const body =
       await context.request.json();
