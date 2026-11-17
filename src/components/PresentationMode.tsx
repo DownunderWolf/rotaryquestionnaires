@@ -15,6 +15,13 @@ export default function PresentationMode({
     const [participantCount, setParticipantCount] =
   useState(0);
 
+  const [questionText, setQuestionText] =
+  useState("");
+
+const [questionId, setQuestionId] =
+  useState<number | null>(null);
+
+
   useEffect(() => {
   if (!sessionCode) {
     return;
@@ -31,6 +38,22 @@ export default function PresentationMode({
     setParticipantCount(
       data.participantCount ?? 0
     );
+
+
+const activeQuestion =
+  data.questions?.[data.activeQuestion];
+
+if (activeQuestion) {
+  setQuestionText(
+    activeQuestion.question_text
+  );
+
+  setQuestionId(
+    activeQuestion.id
+  );
+
+}
+
   }
 
   loadSession();
@@ -290,13 +313,20 @@ export default function PresentationMode({
                 </h2>
 
                 <p
-                  style={{
-                    color: "#FFFFFF",
-                  }}
-                >
-                  Placeholder question
-                  text
-                </p>
+  style={{
+    color: "#FFFFFF",
+  }}
+>
+  Question ID: {questionId}
+</p>
+
+               <p
+  style={{
+    color: "#FFFFFF",
+  }}
+>
+  {questionText}
+</p>
               </div>
 
               <div
