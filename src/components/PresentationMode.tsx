@@ -343,17 +343,18 @@ if (activeQuestion) {
                   color: "#FFFFFF",
                 }}
               >
-                <h3>
-  Participants Joined:
-  {participantCount}
+        <h3>
+  Participants Joined: {participantCount}
 </h3>
 
-                <h3>
-  Responses Received:
-  {results.reduce(
-    (total, result) => total + result.total,
-    0
-  )}
+              <h3>
+  Responses Received: {
+    results.reduce(
+      (total, result) =>
+        total + Number(result.total),
+      0
+    )
+  }
 </h3>
 
                 <hr />
