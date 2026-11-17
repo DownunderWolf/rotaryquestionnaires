@@ -74,6 +74,9 @@ export default function JoinSession() {
 
   useEffect(() => {
     async function loadQuestion() {
+       console.log(
+    "LOAD QUESTION RUNNING"
+  );
       try {
         const response = await fetch(`/api/session/${sessionCode}`);
         const data: SessionResponse = await response.json();
