@@ -33,7 +33,7 @@ export async function onRequestGet(
         .first();
 
     const questionsResult =
-  await context.env.DB.prepare(`
+      await context.env.DB.prepare(`
     SELECT
       id,
       question_text,
@@ -43,60 +43,60 @@ export async function onRequestGet(
     WHERE template_id = ?
     ORDER BY display_order
   `)
-    .bind(session?.template_id)
-    .all();
+        .bind(session?.template_id)
+        .all();
 
-const questions =
-  questionsResult.results || [];
+    const questions =
+      questionsResult.results || [];
 
-const questionsWithOptions =
-  await Promise.all(
-    questions.map(
-      async (question: any) => {
-        const optionsResult =
-          await context.env.DB.prepare(`
+    const questionsWithOptions =
+      await Promise.all(
+        questions.map(
+          async (question: any) => {
+            const optionsResult =
+              await context.env.DB.prepare(`
             SELECT
               option_text
             FROM question_options
             WHERE question_id = ?
             ORDER BY display_order
           `)
-            .bind(question.id)
-            .all();
+                .bind(question.id)
+                .all();
 
-        return {
-          ...question,
-          options:
-            optionsResult.results?.map(
-              (option: any) =>
-                option.option_text
-            ) || [],
-        };
-      }
-    )
-  );
+            return {
+              ...question,
+              options:
+                optionsResult.results?.map(
+                  (option: any) =>
+                    option.option_text
+                ) || [],
+            };
+          }
+        )
+      );
 
-const participantResult =
-  await context.env.DB.prepare(`
+    const participantResult =
+      await context.env.DB.prepare(`
     SELECT COUNT(*) as count
     FROM session_participants
     WHERE session_id = ?
   `)
-    .bind(session?.id)
-    .first();
+        .bind(session?.id)
+        .first();
 
-return Response.json({
-  success: true,
-  session,
-  activeQuestion:
-     session?.active_question ?? 0,
-  questions:
-    questionsWithOptions,
-  participantCount:
-    participantResult?.count ?? 0, 
-  }); 
+    return Response.json({
+      success: true,
+      session,
+      activeQuestion:
+        session?.active_question ?? 0,
+      questions:
+        questionsWithOptions,
+      participantCount:
+        participantResult?.count ?? 0,
+    });
 
-} catch (error) {
+  } catch (error) {
     return Response.json(
       {
         success: false,
