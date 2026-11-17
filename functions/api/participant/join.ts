@@ -2,7 +2,7 @@ export interface Env {
   DB: D1Database;
 }
 
-export async function onRequestPost(
+export async function onRequest(
   context: {
     request: Request;
     env: Env;
