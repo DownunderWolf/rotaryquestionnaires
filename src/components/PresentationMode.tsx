@@ -9,19 +9,17 @@ export default function PresentationMode({
   sessionCode,
 }: PresentationModeProps) {
 
-  const [activeItem, setActiveItem] =
-    useState("Join Participants");
+ const [activeItem, setActiveItem] =
+  useState("Join Participants");
 
-    const [participantCount, setParticipantCount] =
+const [participantCount, setParticipantCount] =
   useState(0);
 
-  const [questionText, setQuestionText] =
+const [questionText, setQuestionText] =
   useState("");
 
-  const [results, setResults] =
+const [results, setResults] =
   useState<any[]>([]);
-
-  //const [results, setResults] = useState<any[]>([]);
 
 
   useEffect(() => {
@@ -189,9 +187,11 @@ if (activeQuestion) {
           {questions.map((question) => (
             <div
               key={question}
-              onClick={() =>
-                setActiveItem(question)
-              }
+
+   onClick={() =>
+  setActiveItem(question)
+}
+
               style={{
                 padding: "14px",
                 marginBottom: "8px",
@@ -320,6 +320,8 @@ if (activeQuestion) {
                 >
                   {activeItem}
                 </h2>
+
+ 
 
                 <p
   style={{
