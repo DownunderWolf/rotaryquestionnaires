@@ -81,6 +81,11 @@ export default function JoinSession() {
        setSessionId(data.session?.id ?? null);
 
 if (data.session?.id) {
+  console.log(
+    "PARTICIPANT JOIN",
+    data.session.id
+  );
+
   fetch("/api/participant/join", {
     method: "POST",
     headers: {
@@ -89,7 +94,22 @@ if (data.session?.id) {
     body: JSON.stringify({
       sessionId: data.session.id,
     }),
-  });
+  })
+    .then((response) =>
+      response.json()
+    )
+    .then((result) =>
+      console.log(
+        "JOIN RESULT",
+        result
+      )
+    )
+    .catch((error) =>
+      console.error(
+        "JOIN ERROR",
+        error
+      )
+    );
 }
 
 setTotalQuestions(
