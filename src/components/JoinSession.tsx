@@ -186,19 +186,23 @@ setActiveQuestionIndex(
           .filter((item) => item.length > 0);
 
         for (const entry of entries) {
-          await fetch("/api/response/save", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              sessionId,
-              questionId: question.id,
-              responseText: entry,
-            }),
-          });
-        }
-      } else {
+  await fetch("/api/response/save", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      sessionId,
+      questionId: question.id,
+      responseText: entry,
+      participantId: sessionStorage.getItem(
+        "participantId"
+      ),
+    }),
+  });
+}
+
+           } else {
         await fetch("/api/response/save", {
           method: "POST",
           headers: {
@@ -211,6 +215,9 @@ setActiveQuestionIndex(
               question.question_type === "Combination Choice"
                 ? selectedAnswers.join(" + ")
                 : selectedAnswer,
+            participantId: sessionStorage.getItem(
+              "participantId"
+            ),
           }),
         });
       }
