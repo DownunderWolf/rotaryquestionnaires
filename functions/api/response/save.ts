@@ -12,27 +12,30 @@ export async function onRequestPost(
     const body =
       await context.request.json();
 
-    const {
-      sessionId,
-      questionId,
-      responseText,
-    } = body;
+   const {
+  sessionId,
+  questionId,
+  responseText,
+  participantId,
+} = body;
 
     const result =
-      await context.env.DB.prepare(`
-        INSERT INTO responses
-        (
-          session_id,
-          question_id,
-          response_text
-        )
-        VALUES (?, ?, ?)
-      `)
-        .bind(
-          sessionId,
-          questionId,
-          responseText
-        )
+  await context.env.DB.prepare(`
+    INSERT INTO responses
+    (
+      session_id,
+      question_id,
+      response_text,
+      participant_id
+    )
+    VALUES (?, ?, ?, ?)
+  `)
+       .bind(
+  sessionId,
+  questionId,
+  responseText,
+  participantId
+)
         .run();
 
     return Response.json({
