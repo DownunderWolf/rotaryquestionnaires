@@ -11,7 +11,7 @@ export async function onRequestPost(
   try {
     const body = await context.request.json();
 
-    await context.env.DB.prepare(`
+    const result = await context.env.DB.prepare(`
       INSERT INTO session_participants
       (
         session_id
@@ -22,8 +22,10 @@ export async function onRequestPost(
       .run();
 
     return Response.json({
-      success: true,
-    });
+  success: true,
+  participantId:
+    result.meta.last_row_id,
+});
 
   } catch (error) {
     return Response.json(
