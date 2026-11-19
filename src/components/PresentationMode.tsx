@@ -388,10 +388,28 @@ if (activeQuestion) {
               >
                 <h3>Visualisation</h3>
 
-                <p>
-                  Chart / Word Cloud
-                  placeholder
-                </p>
+               <div
+  style={{
+    display: "flex",
+    flexWrap: "wrap",
+    justifyContent: "center",
+    gap: "12px",
+    marginTop: "20px",
+  }}
+>
+  {results.map((result, index) => (
+    <span
+      key={index}
+      style={{
+        fontSize: `${16 + result.total * 8}px`,
+        fontWeight: "bold",
+        color: "#FFFFFF",
+      }}
+    >
+      {result.response_text}
+    </span>
+  ))}
+</div>
               </div>
             </>
           )}
