@@ -111,6 +111,12 @@ if (data.session?.id) {
     "participantId",
     String(result.participantId)
   );
+
+alert(
+  "Participant ID = " +
+  result.participantId
+);
+
 console.log(
   "PARTICIPANT ID SAVED",
   result.participantId
