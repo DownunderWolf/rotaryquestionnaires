@@ -101,12 +101,17 @@ if (data.session?.id) {
     .then((response) =>
       response.json()
     )
-    .then((result) =>
-      console.log(
-        "JOIN RESULT",
-        result
-      )
-    )
+  .then((result) => {
+  console.log(
+    "JOIN RESULT",
+    result
+  );
+
+  sessionStorage.setItem(
+    "participantId",
+    String(result.participantId)
+  );
+})
     .catch((error) =>
       console.error(
         "JOIN ERROR",
