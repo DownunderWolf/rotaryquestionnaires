@@ -309,7 +309,7 @@ console.log(data);
   style={{
     textAlign: "center",
     marginTop: "30px",
-    color: "#FFFFFF",
+    color: "#005DAA",
     fontSize: "14px",
   }}
 >
