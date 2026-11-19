@@ -111,6 +111,11 @@ if (data.session?.id) {
     "participantId",
     String(result.participantId)
   );
+console.log(
+  "PARTICIPANT ID SAVED",
+  result.participantId
+);
+
 })
     .catch((error) =>
       console.error(
