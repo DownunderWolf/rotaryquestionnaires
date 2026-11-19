@@ -389,21 +389,25 @@ if (activeQuestion) {
                 <h3>Visualisation</h3>
 
                <div
-  style={{
-    display: "flex",
-    flexWrap: "wrap",
-    justifyContent: "center",
-    gap: "12px",
-    marginTop: "20px",
-  }}
+ style={{
+  display: "flex",
+  flexWrap: "wrap",
+  justifyContent: "center",
+  alignContent: "center",
+  gap: "20px",
+  marginTop: "20px",
+  minHeight: "160px",
+}}
+
 >
   {results.map((result, index) => (
     <span
       key={index}
       style={{
-        fontSize: `${16 + result.total * 8}px`,
+        fontSize: `${20 + result.total * 12}px`,
         fontWeight: "bold",
         color: "#FFFFFF",
+        padding: "4px",
       }}
     >
       {result.response_text}
