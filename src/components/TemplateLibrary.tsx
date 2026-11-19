@@ -144,7 +144,7 @@ console.log(data);
             "Montserrat, sans-serif",
         }}
       >
-        Template Library V3 Test
+        Template Library
       </h1>
 
       <div
@@ -304,6 +304,17 @@ console.log(data);
             Back to Dashboard
           </button>
         </div>
+
+        <div
+  style={{
+    textAlign: "center",
+    marginTop: "30px",
+    color: "#FFFFFF",
+    fontSize: "14px",
+  }}
+>
+  © Complete Circle Consulting
+</div>
       </div>
     </div>
   );
