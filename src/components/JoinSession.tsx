@@ -112,10 +112,6 @@ if (data.session?.id) {
     String(result.participantId)
   );
 
-alert(
-  "Participant ID = " +
-  result.participantId
-);
 
 console.log(
   "PARTICIPANT ID SAVED",
