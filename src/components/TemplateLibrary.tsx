@@ -279,12 +279,15 @@ console.log(data);
                   </button>
 
                   <button
-                    style={
-                      deleteButton
-                    }
-                  >
-                    Delete
-                  </button>
+  style={
+    deleteButton
+  }
+  onClick={() =>
+    alert(`Delete template ${template.id}`)
+  }
+>
+  Delete
+</button>
                 </div>
               </div>
             )
