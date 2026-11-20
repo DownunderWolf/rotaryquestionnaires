@@ -407,16 +407,26 @@ console.log(activeQuestion);
 </p>
 
 {_questionType === "Single Choice" && (
-  <p
+  <svg
+    width="220"
+    height="220"
+    viewBox="0 0 220 220"
     style={{
-      textAlign: "center",
-      color: "#FFFFFF",
-      fontSize: "24px",
-      fontWeight: "bold",
+      display: "block",
+      margin: "0 auto",
     }}
   >
-    PIE CHART
-  </p>
+    <circle
+      cx="110"
+      cy="110"
+      r="90"
+      fill="#005DAA"
+      stroke="#F7A81B"
+      strokeWidth="180"
+      strokeDasharray="377 188"
+      transform="rotate(-90 110 110)"
+    />
+  </svg>
 )}
 
                 <h3>Visualisation</h3>
