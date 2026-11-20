@@ -21,6 +21,11 @@ export async function onRequestPost(
       .bind(templateId)
       .run();
 
+      console.log(
+  "DELETE TEMPLATE ID",
+  templateId
+);
+
     return Response.json({
       success: true,
     });
