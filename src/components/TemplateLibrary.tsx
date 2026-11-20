@@ -303,7 +303,23 @@ console.log(data);
     }
   );
 
-  loadTemplates();
+await fetch(
+  "/api/template/delete",
+  {
+    method: "POST",
+    headers: {
+      "Content-Type":
+        "application/json",
+    },
+    body: JSON.stringify({
+      templateId: template.id,
+    }),
+  }
+);
+
+alert("Delete API called");
+
+loadTemplates();
 }}
 >
   Delete
