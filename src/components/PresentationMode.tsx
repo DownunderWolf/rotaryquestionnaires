@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 import QRCode from "react-qr-code";
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+} from "recharts";
 
 interface PresentationModeProps {
   sessionCode?: string;
@@ -407,22 +413,44 @@ console.log(activeQuestion);
 </p>
 
 {_questionType === "Single Choice" && (
- <svg
-  width="220"
-  height="220"
-  viewBox="0 0 220 220"
+ <div
   style={{
-    display: "block",
-    margin: "0 auto",
+    width: "100%",
+    height: "250px",
   }}
 >
-  <circle
-    cx="110"
-    cy="110"
-    r="90"
-    fill="#005DAA"
-  />
-</svg>
+  <ResponsiveContainer>
+    <PieChart>
+      <Pie
+        data={results}
+        dataKey="total"
+        nameKey="response_text"
+        cx="50%"
+        cy="50%"
+        outerRadius={80}
+      >
+        {results.map(
+          (_, index) => (
+            <Cell
+              key={index}
+              fill={
+                [
+                  "#F7A81B",
+                  "#005DAA",
+                  "#4CAF50",
+                  "#E91E63",
+                  "#9C27B0",
+                  "#00BCD4",
+                ][index % 6]
+              }
+            />
+          )
+        )}
+      </Pie>
+    </PieChart>
+  </ResponsiveContainer>
+</div>
+
 )}
 
                 <h3>Visualisation</h3>
