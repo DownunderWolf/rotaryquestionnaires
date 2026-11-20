@@ -396,6 +396,16 @@ console.log(activeQuestion);
                   color: "#FFFFFF",
                 }}
               >
+
+<p
+  style={{
+    textAlign: "center",
+    color: "#FFFFFF",
+  }}
+>
+  Question Type: {_questionType}
+</p>
+
                 <h3>Visualisation</h3>
 
                <div
@@ -414,7 +424,7 @@ console.log(activeQuestion);
     <span
       key={index}
       style={{
-        fontSize: `${20 + result.total * 12}px`,
+        fontSize: `${24 + result.total * 20}px`,
         fontWeight: "bold",
         color: "#FFFFFF",
         padding: "4px",
