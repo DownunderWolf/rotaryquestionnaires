@@ -413,10 +413,11 @@ console.log(activeQuestion);
 </p>
 
 {_questionType === "Single Choice" && (
- <div
+<div
   style={{
     width: "100%",
-    height: "250px",
+    height: "220px",
+    marginBottom: "20px",
   }}
 >
   <ResponsiveContainer>
