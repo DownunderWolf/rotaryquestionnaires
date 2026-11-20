@@ -406,6 +406,19 @@ console.log(activeQuestion);
   Question Type: {_questionType}
 </p>
 
+{_questionType === "Single Select" && (
+  <p
+    style={{
+      textAlign: "center",
+      color: "#FFFFFF",
+      fontSize: "24px",
+      fontWeight: "bold",
+    }}
+  >
+    PIE CHART COMING SOON
+  </p>
+)}
+
                 <h3>Visualisation</h3>
 
                <div
