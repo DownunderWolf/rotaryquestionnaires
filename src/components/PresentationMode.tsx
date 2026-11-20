@@ -18,6 +18,10 @@ const [participantCount, setParticipantCount] =
 const [questionText, setQuestionText] =
   useState("");
 
+const [_questionType, setQuestionType] =
+  useState("");
+
+
 const [results, setResults] =
   useState<any[]>([]);
 
@@ -47,6 +51,10 @@ if (activeQuestion) {
   setQuestionText(
     activeQuestion.question_text
   );
+
+  setQuestionType(
+  activeQuestion.question_type
+);
 
 console.log(activeQuestion);
 
