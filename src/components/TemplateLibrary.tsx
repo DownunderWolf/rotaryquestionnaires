@@ -284,6 +284,7 @@ console.log(data);
   }
   onClick={() =>
     alert(`Delete template ${template.id}`)
+    
   }
 >
   Delete
