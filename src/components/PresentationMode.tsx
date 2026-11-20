@@ -415,7 +415,7 @@ console.log(activeQuestion);
       fontWeight: "bold",
     }}
   >
-    PIE CHART COMING SOON
+    PIE CHART
   </p>
 )}
 
