@@ -328,7 +328,7 @@ alert(
 loadTemplates();
 }}
 >
-  Delete
+  Archive
 </button>
                 </div>
               </div>
