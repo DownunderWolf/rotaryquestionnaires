@@ -48,6 +48,8 @@ if (activeQuestion) {
     activeQuestion.question_text
   );
 
+console.log(activeQuestion);
+
   const resultsResponse =
     await fetch(
       `/api/response/results?sessionId=${data.session.id}&questionId=${activeQuestion.id}`
