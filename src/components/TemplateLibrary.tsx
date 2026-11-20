@@ -282,13 +282,29 @@ console.log(data);
   style={
     deleteButton
   }
-  onClick={() => {
-    if (
-  !confirm("Delete this template?")
-) {
-  return;
-}
-  }}
+  onClick={async () => {
+  if (
+    !confirm("Delete this template?")
+  ) {
+    return;
+  }
+
+  await fetch(
+    "/api/template/delete",
+    {
+      method: "POST",
+      headers: {
+        "Content-Type":
+          "application/json",
+      },
+      body: JSON.stringify({
+        templateId: template.id,
+      }),
+    }
+  );
+
+  loadTemplates();
+}}
 >
   Delete
 </button>
