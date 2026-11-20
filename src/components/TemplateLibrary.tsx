@@ -282,10 +282,13 @@ console.log(data);
   style={
     deleteButton
   }
-  onClick={() =>
-    alert(`Delete template ${template.id}`)
-    
-  }
+  onClick={() => {
+    if (
+  !confirm("Delete this template?")
+) {
+  return;
+}
+  }}
 >
   Delete
 </button>
