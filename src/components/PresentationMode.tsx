@@ -406,7 +406,7 @@ console.log(activeQuestion);
   Question Type: {_questionType}
 </p>
 
-{_questionType === "Single Select" && (
+{_questionType === "Single Choice" && (
   <p
     style={{
       textAlign: "center",
